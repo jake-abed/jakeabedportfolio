@@ -1,6 +1,12 @@
 body {
-    background-color: #af6969;
+    background-color: #e5a0a0;
 }
-p {
+p, h1, h2, h3, h4 {
     font-family: impact;
+}
+.nav-box{
+    padding: 0px;
+    margin: 0 auto;
+    height: 5%;
+    width: 100%;
 }
