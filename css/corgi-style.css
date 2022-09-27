@@ -13,8 +13,9 @@ p, h1, h2, h3, h4 {
     justify-content:space-between;
 }
 
-.nav-links{
+.nav-links {
     color: white;
     background-color: black;
     border: 2px dotted white;
+    padding: 5px 10px;
 }
