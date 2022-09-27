@@ -9,4 +9,6 @@ p, h1, h2, h3, h4 {
     margin: 0 auto;
     height: 5%;
     width: 100%;
+    display: flex;
+    justify-content:space-between;
 }
