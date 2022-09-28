@@ -4,6 +4,12 @@ body {
 p, h1, h2, h3, h4 {
     font-family: impact;
 }
+
+h1{
+    font-size: 64px;
+    text-align: center;
+}
+
 .nav-box{
     padding: 0px;
     padding-left: 10%;
@@ -20,4 +26,8 @@ p, h1, h2, h3, h4 {
     background-color: black;
     border: 2px dotted white;
     padding: 5px 10px;
+}
+
+.nav-links > p {
+    font-size: 24px;
 }
