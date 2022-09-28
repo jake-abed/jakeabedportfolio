@@ -10,6 +10,17 @@ h1{
     text-align: center;
 }
 
+div {
+    width: 90%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.h1-container {
+    width: 90%;
+    margin: 0 auto;
+}
+
 .nav-box{
     padding: 0px;
     padding-left: 10%;
