@@ -26,7 +26,7 @@ div {
 .nav-box{
     padding: 0px;
     margin: 0 auto;
-    height: 10%;
+    height: 20%;
     width: 100%;
     display: flex;
     justify-content:center;
@@ -38,15 +38,23 @@ div {
 .nav-links {
     color: white;
     background-color: black;
-    border: 2px dashed white;
-    padding: 5px 10px;
+    border: .5rem dashed white;
+    padding: 1.5rem 10px;
 }
 
-.nav-links, a {
-    font-size: 24px;
+.nav-links {
+    font-size: 1.5em;
     text-align: center;
     color: white;
     margin: 0 auto;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: #aa3333;
 }
 
 .intro-text {
@@ -81,6 +89,46 @@ div {
     width: 30%;
     min-width: 300px;
 }
-.discord-link{
+
+#discord-link{
     display: block;
+    color: white;
+    background: black;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px dashed white;
+    padding: 5px 10px;
+    font-size: 2em;
+}
+
+#annoying-button-box {
+    width: 50%;
+    height: 20%;
+    margin: 3rem auto;
+}
+#annoying-button {
+    width: 100%;
+    height: 100px;
+    margin: 10px auto;
+    max-width: 300px;
+    background-color: black;
+    color: white;
+    font-size: 2em;
+    border: 5px dashed white;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -00%);
+    transform: translate(-50%, -00%);
+}
+
+#annoying-button:hover {
+    color: black;
+    background-color: white;
+    border: 5px double black;
+}
+
+#discord-link-box {
+    width: 2rem;
+    min-width: 200px;
+    margin: 10px auto;
 }
