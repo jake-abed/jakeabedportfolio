@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="css/corgi-style.css">
+	<script src="scripts/ingredient-checker.js" async></script>
     <title>Some Resources | WENCORGIZATTACK</title>
 </head>
 <main>
@@ -18,6 +20,16 @@
 		</nav>
 	</header>
 	<body>
+		<div id="intro-box">
+			<h2>Give Me An Ingredient List, I'll Tell You If It's Acne Safe</h2>
+			<p>It's like I said. Skincare is often full of obnoxious ingredients. Really bad ones, that'll give you da pizza face. No good, right? That's why I made this. All the other tools kinda missed the picture or weren't smart enough. I'm not sure if this is "smart" enough, but it'll get there.</p>
+		</div>
+		<div id="textarea-container">
+			<textarea id="ingredient-input"></textarea>
+		</div>
+		<div id="response-container"> 
+			<h2 id="acne-safe-response"></h2>
+		</div>
 		<div id="annoying-button-box">
 			<button id="annoying-button">CLICK ME, LOSER!</button>
 		</div>
