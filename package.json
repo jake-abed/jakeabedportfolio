@@ -1,0 +1,23 @@
+{
+  "name": "wencorgizattack",
+  "version": "1.0.0",
+  "description": "Jake Abed's Personal and Code Testing Website for developing of self",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/badhandbanana/wencorgizattack.git"
+  },
+  "keywords": [
+    "test",
+    "personal"
+  ],
+  "author": "Jake Abed",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/badhandbanana/wencorgizattack/issues"
+  },
+  "homepage": "https://github.com/badhandbanana/wencorgizattack#readme"
+}
