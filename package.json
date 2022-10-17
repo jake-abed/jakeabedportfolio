@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/badhandbanana/wencorgizattack/issues"
   },
-  "homepage": "https://github.com/badhandbanana/wencorgizattack#readme"
+  "homepage": "https://github.com/badhandbanana/wencorgizattack#readme",
+  "dependencies": {
+    "fuzzyset.js": "^1.0.7"
+  }
 }
