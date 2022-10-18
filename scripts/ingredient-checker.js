@@ -6,17 +6,31 @@ let ingredientMessage = document.getElementById("acne-safe-response");
 let processListButton = document.getElementById("annoying-button");
 let ingredientInput = document.getElementById("ingredient-input");
 let ingredientInputArray = [];
+let isIngredientAcneCausing = (ingredient) => ingredientDictionary.includes(ingredient) ? ingredient + " " : false; // Check if the dictionary contains the ingredient.
+
+processListButton.addEventListener("click", fillIngredientInputArray, false);
+processListButton.addEventListener("click", updateResponseText, false);
+processListButton.addEventListener("click", console.log(createAcneCausingIngredientReturn(["Algae","dog"])), false);
+
+function createAcneCausingIngredientReturn(inputArray) {
+    let i = 0;
+    let outputArray = inputArray.map(isIngredientAcneCausing);
+    let outputString = "";
+    while (i < outputArray.length) {
+        if (i != (outputArray.length -1)) {
+            outputString = outputArray[i] ? outputString.concat(outputArray[i] + ", ") : outputString.concat("");
+        } else {
+            outputString = outputArray[i] ? outputString.concat(outputArray[i]) : outputString.concat("");
+        }
+        i++;
+    }
+    return outputString;
+}
 
 function updateResponseText() {
-    ingredientMessage.innerHTML = (ingredientInputArray[(ingredientInputArray.length-1)] ?? ingredientInputArray) + " | Just so you know, this doesn't actually work right now. I'm just getting started.";
+    ingredientMessage.innerHTML = createAcneCausingIngredientReturn(ingredientInputArray) + " | These ingredients are definitely not acne-safe. That being said, this kind of doesn't work right now. I mean, it doe";
 }
 
 function fillIngredientInputArray() {
     return ingredientInputArray = ingredientInput.value.split(", ");
 }
-
-processListButton.addEventListener("click", fillIngredientInputArray, false);
-processListButton.addEventListener("click", updateResponseText, false);
-
-
-console.log(ingredientInputArray);
