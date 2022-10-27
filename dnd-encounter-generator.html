@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/corgi-style.css">
+	<script src="scripts/encounter-generator.js" async></script>
+    <title>D&D Encounter Generator | WENCORGIZATTACK</title>
+</head>
+<main>
+	<header>
+		<nav>
+			<div class="h1-container">
+				<h1>Wen Corgiz Attack</h1>
+				<h2>We All Cry</h2>
+			</div>
+			<div class="nav-box">
+				<div class="nav-button"><p class="nav-links"><a href="index.html">HOME</a></p></div>
+				<div class="nav-button"><p class="nav-links"><a href="ingredient-checker.html">ACNE-SAFE?</p></div>
+				<div class="nav-button"><p class="nav-links"><a href="dnd-encounter-generator.html">ENCOUNTER GENERATOR</a></p></div>
+			</div>
+		</nav>
+	</header>
+	<body>
+		<div id="intro-box">
+			<h2>Need An Encounter For You D&D Session?</h2>
+			<p>This page will help you quickly generate an encounter from pre-filled assets.</p>
+			<p>All you have to do is select setting, acceptable danger levels, and what types of encounters are acceptable.</p>
+		</div>
+		<div class="encounter-input-container">
+			<label for="encounter-setting">What setting would you like the encounter to be in?</label>
+			<select id="encounter-setting">
+				<option value="random">Random</option>
+				<option value="city">City</option>
+				<option value="forest">Forest</option>
+				<option value="plains">Plains</option>
+				<option value="river">River</option>
+				<option value="cloudsea">Cloud Sea</option>
+				<option value="hills">Hills</option>
+				<option value="mountains">Mountains</option>
+			</select>
+			<legend>Please check all acceptable danger levels?</legend>
+			<label for id="low-danger-level"><input id="low-danger-level" type="checkbox" value="Low">: Low Danger</label>
+			<label for id="medium-danger-level"><input id="medium-danger-level" type="checkbox" value="Medium">: Medium Danger</label>
+			<label for id="high-danger-level"><input id="high-danger-level" type="checkbox" value="">: High Danger</label>
+			<label for id="very-high-danger-level"><input id="very-high-danger-level" type="checkbox" value="">: Very High Danger</label>
+		</div>
+		<div id="annoying-button-box">
+			<button id="annoying-button">Encounter, Please!</button>
+		</div>
+	</body>
+</main>

@@ -114,7 +114,8 @@ a:hover {
 #annoying-button-box {
     width: 50%;
     height: 20%;
-    margin: 3rem auto;
+    max-width: 300px;
+    margin: 0 auto;
 }
 #annoying-button {
     width: 100%;
@@ -125,10 +126,6 @@ a:hover {
     color: white;
     font-size: 2em;
     border: 5px dashed white;
-    position: absolute;
-    left: 50%;
-    -ms-transform: translate(-50%, -00%);
-    transform: translate(-50%, -00%);
 }
 
 #annoying-button:hover {
@@ -152,4 +149,30 @@ a:hover {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: medium;
     padding: 6px 6px;
+}
+
+select {
+    margin: 0 auto;
+    width: 30%;
+    min-width: 3rem;
+    height: 1.75rem;
+    font-size: small;
+    display: block;
+}
+
+label {
+    display: block;
+    width: 80%;
+    margin: .75rem auto;
+}
+
+legend {
+    margin: 1.5em auto;
+    width: 80%;
+}
+
+input {
+    display: inline;
+    margin: 0 auto;
+    vertical-align: middle;
 }
