@@ -38,12 +38,16 @@
 				<option value="hills">Hills</option>
 				<option value="mountains">Mountains</option>
 			</select>
-			<legend>Please check all acceptable danger levels?</legend>
-			<label for id="low-danger-level"><input id="low-danger-level" type="checkbox" value="Low">: Low Danger</label>
-			<label for id="medium-danger-level"><input id="medium-danger-level" type="checkbox" value="Medium">: Medium Danger</label>
-			<label for id="high-danger-level"><input id="high-danger-level" type="checkbox" value="">: High Danger</label>
-			<label for id="very-high-danger-level"><input id="very-high-danger-level" type="checkbox" value="">: Very High Danger</label>
-		</div>
+			<label for="is-combat">Is this a combat encounter?</label>
+			<select id="is-combat">
+				<option value="true">Yes</option>
+				<option value="false">No</option>
+			</select>
+			<label for="extra-hard">Want this to be extra hard?</label>
+			<select id="extra-hard">
+				<option value="false">No</option>
+				<option value="true">Yes</option>
+			</select>
 		<div id="annoying-button-box">
 			<button id="annoying-button">Encounter, Please!</button>
 		</div>

@@ -72,6 +72,12 @@ a:hover {
     font-weight: normal;
 }
 
+#intro-box {
+    margin: 0 auto;
+    width: 90vw;
+    max-width: 600px;
+}
+
 .image-container {
     margin: 0 auto;
     display: flex;
@@ -140,6 +146,11 @@ a:hover {
     margin: 10px auto;
 }
 
+#textarea-container {
+    width: 90vw;
+    max-width: 600px;
+}
+
 #ingredient-input {
     width: 95%;
     height: 150px;
@@ -153,7 +164,7 @@ a:hover {
 
 select {
     margin: 0 auto;
-    width: 30%;
+    width: 90%;
     min-width: 3rem;
     height: 1.75rem;
     font-size: small;
@@ -162,17 +173,23 @@ select {
 
 label {
     display: block;
-    width: 80%;
+    width: 90%;
     margin: .75rem auto;
 }
 
 legend {
     margin: 1.5em auto;
-    width: 80%;
+    width: 90%;
 }
 
 input {
     display: inline;
     margin: 0 auto;
     vertical-align: middle;
+}
+
+.encounter-input-container {
+    margin: 0 auto;
+    width: 90vw;
+    max-width: 500px;
 }
