@@ -193,3 +193,12 @@ input {
     width: 90vw;
     max-width: 500px;
 }
+
+#encounter-box {
+    background-color: white;
+    border-radius: 3px;
+    margin: 10px auto;
+    width: 90vw;
+    max-width: 500px;
+    padding: .2em;
+}
