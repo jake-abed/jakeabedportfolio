@@ -29,26 +29,42 @@ let encounter1 = {
 }
 
 let encounter2 = {
-
+    location: ["cloudsea"],
+    combat: false,
+    extraHard: false,
+    title: "An airship restaurant approaches...",
+    description: "A lively restaurant, known as 'The Noodly Appendage' based out of an airship approaches the party. They serve noodles, fried chicken, and sky whale porridge. If the players engage with the proprietors"
 }
 
-const nonCombatEncounter = { //A sample noncombat encounter to see what I want to return?
-    nonCombat: true,
-    setting: undefined,//create a function to choose a setting based off of user input.
-    title: "A shady merchant approaches your party...",
-    npc: undefined,
-    description: `Steve approaches your party, surreptitiously asking, "Wouldst though like any wares?" But truthfully he simply wishes to swindle the party. Choose a random party member and Steve will try to pickpocket them. He\'s pretty weak and has no associates. No bonuses either way. If caught he'll run.`,
-    rewards: "10 gp & a ladle",
+let encounter3 = {
+    location: ["random", "outdoors", "dungeon"],
+    combat: false,
+    extraHard: false,
+    title: "A glowing orb with a disempbodied voice approaches...",
+    description: "A glowing orb with a disembodied and monstrously booming voice approaches from behind a nearby object. Tree, coffin, building, whatever. It says that if you can answer its riddles and questions correctly, it will reward you handsomely. The first one is a riddle: 'We can be fast, we can be slow, We sometimes fly yet fall so low. We bring bout life, we can also kill.  Many & everywhere, we are hot, cold, moving, or still. Who are we?' The answer is 'We Are Water'. If they clown the light for riddle being mediocre, he suggests they come up with a better one. The second question is history check or theology check on the land. DC 15. For the Cloud Sea, the question is 'What year was the dissolution of the first Aarokocran Dominion?' The answer is '0 PD or 0 Post Dominion' as a kind of trick question. The final question is 'Three children have three loaves of bread each. They invite three more friends over, each with one loaf of bread. They then slice each loaf of bread into nine slices. They then invite over three more friends, then divide the bread evenly amongst them all. Assuming each child is only hungry enough to eat two slices of bread (there is some jam and butter as well), how many loaves are left over?' The answer is 4.",
+    reward: "Ring Of Truths",
+    dmNotes: "This one's a doozy. Have fun."
 }
+
+let encounterMap = new Map([
+    [0, encounter0],
+    [1, encounter1],
+    [2, encounter2],
+    [3, encounter3],
+]);
 
 const generateEncounterButton = document.getElementById("annoying-button"),
-encounterSettingValue = document.getElementById("encounter-setting"),
-nonCombatValue = document.getElementById("is-combat"),
-extraHardValue = document.getElementById("extra-hard");
+      encounterSettingValue = document.getElementById("encounter-setting"),
+      nonCombatValue = document.getElementById("is-combat"),
+      extraHardValue = document.getElementById("extra-hard"),
+      encounterTitleDisplay = document.getElementById("encounter-title"),
+      encounterDescriptionDisplay = document.getElementById("encounter-description"),
+      encounterRewardDisplay = document.getElementById("encounter-rewards"),
+      encounterDMNotesDisplay = document.getElementById("encounter-dm-notes");
 
 
 function logDumbMessage() {
-    return console.log(encounter001);
+    return console.log(encounterPreferences);
 }
 
 function updateEncounterPreferences() {
@@ -57,5 +73,19 @@ function updateEncounterPreferences() {
     encounterPreferences.extraHard = (extraHardValue.value === "true");
 }
 
+function randomEncounter() {
+    let encounterPick = encounterMap.get(Math.floor((Math.random()*4)));
+    let encounterPickLocation = encounterPick.location;
+    if (!encounterPickLocation.includes(encounterPreferences.setting)) {
+        return randomEncounter();
+    }
+    encounterTitleDisplay.innerHTML = encounterPick.title;
+    encounterDescriptionDisplay.innerHTML = encounterPick.description;
+    encounterPick.reward ? encounterRewardDisplay.innerHTML = encounterPick.reward : encounterRewardDisplay.innerHTML = "Oops! Lazy DM/Coder didn't finish his work.";
+    encounterPick.dmNotes ? encounterDMNotesDisplay.innerHTML = encounterPick.dmNotes : encounterDMNotesDisplay.innerHTML = "Sorry, the DM/Coder fucked up."
+    return;
+}
+
 generateEncounterButton.addEventListener("click", updateEncounterPreferences, false);
+generateEncounterButton.addEventListener("click", randomEncounter, false);
 generateEncounterButton.addEventListener("click", logDumbMessage, false);
