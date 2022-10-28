@@ -118,16 +118,16 @@ a:hover {
 }
 
 #annoying-button-box {
-    width: 50%;
+    width: 60%;
     height: 20%;
-    max-width: 300px;
+    max-width: 400px;
     margin: 0 auto;
 }
 #annoying-button {
     width: 100%;
     height: 100px;
     margin: 10px auto;
-    max-width: 300px;
+    max-width: 400px;
     background-color: black;
     color: white;
     font-size: 2em;
