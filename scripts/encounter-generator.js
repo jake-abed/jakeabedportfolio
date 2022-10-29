@@ -8,7 +8,7 @@ const encounterPreferences = { //Set to default values
     extraHard: false,
 }
 
-let encounter0 = {
+const encounter0 = {
     location: ["random", "city"],
     combat: false,
     extraHard: false,
@@ -18,7 +18,7 @@ let encounter0 = {
     dmNotes: "Adjust amount stolen, XP, and reward gold as needed for high level parties. Consider having him not steal from struggling players.",
 }
 
-let encounter1 = {
+const encounter1 = {
     location: ["random", "city", "outdoors"],
     combat: false,
     extraHard: false,
@@ -28,22 +28,72 @@ let encounter1 = {
     dmNotes: "You can weave this into your story or just have this be an ethics check on your players.",
 }
 
-let encounter2 = {
+const encounter2 = {
     location: ["cloudsea"],
     combat: false,
     extraHard: false,
     title: "An airship restaurant approaches...",
-    description: "A lively restaurant, known as 'The Noodly Appendage' based out of an airship approaches the party. They serve noodles, fried chicken, and sky whale porridge. If the players engage with the proprietors"
+    description: "A lively restaurant, known as 'The Noodly Appendage' based out of an airship approaches the party. They serve noodles, fried chicken, and sky whale porridge. If the players engage with the proprietors, they get delicous food and a information about a famous restaurant in Polpizu (Polpran City) named 'Sumptuous Blizzard' operated by a Kenku chef known as Ogreel van Kreuzh.",
+    reward: "No reward, just good food and info.",
+    dmNotes: "Let the players linger in this one. Great for repeat events if you want them to decompress."
 }
 
-let encounter3 = {
+const encounter3 = {
     location: ["random", "outdoors", "dungeon"],
     combat: false,
     extraHard: false,
     title: "A glowing orb with a disempbodied voice approaches...",
     description: "A glowing orb with a disembodied and monstrously booming voice approaches from behind a nearby object. Tree, coffin, building, whatever. It says that if you can answer its riddles and questions correctly, it will reward you handsomely. The first one is a riddle: 'We can be fast, we can be slow, We sometimes fly yet fall so low. We bring bout life, we can also kill.  Many & everywhere, we are hot, cold, moving, or still. Who are we?' The answer is 'We Are Water'. If they clown the light for riddle being mediocre, he suggests they come up with a better one. The second question is history check or theology check on the land. DC 15. For the Cloud Sea, the question is 'What year was the dissolution of the first Aarokocran Dominion?' The answer is '0 PD or 0 Post Dominion' as a kind of trick question. The final question is 'Three children have three loaves of bread each. They invite three more friends over, each with one loaf of bread. They then slice each loaf of bread into nine slices. They then invite over three more friends, then divide the bread evenly amongst them all. Assuming each child is only hungry enough to eat two slices of bread (there is some jam and butter as well), how many loaves are left over?' The answer is 4.",
     reward: "Ring Of Truths",
-    dmNotes: "This one's a doozy. Have fun."
+    dmNotes: "This one's a doozy. Have fun.",
+}
+
+const encounter4 = {
+    location: ["dungeon", "city"],
+    combat: false,
+    extraHard: false,
+    title: "A small gargoyle sits abjectly in the corner of the room.",
+    descripton: "The tiniest gargoyle sits in the corner of the room, looking immensely gloomy. He says he lost his staff and can't prop himself menacingly on any parapets or columns. If the party searches the room, they'll notice that the gargoyle's staff is under a large pile of rubble. DC 10 perception. To clear the rubble, it'll require a strength check of DC 20 - 5 per participating player. A DC 15 perception check will reveal two opaline gems about a half inch in diameter in the rubble. They are the gargoyle's eyes.",
+    reward: "If they keep the opals, they are worth 20gp each. If they return the opals, the gargoyle will offer to accompany them on their journey. He has 200 HP, can carry one item for the party, has 20 AC, but only deals 1d4 damager with a +5 attack modifier. He's very weak.",
+    dmNotes: "The small gargoyle's name is Grostni and he likes blood-splattered walls, the smell of noodles, and cats.",
+}
+
+const encounter5 = {
+    location: ["random", "outdoors", "city", "cloudsea"],
+    combat: false,
+    extraHard: false,
+    title: "A bird shits on a random player's head.",
+    descripton: "A large white and grey bird craps on one of the player's heads.",
+    reward: "Nope.",
+    dmNotes: "Yeah, they can't all be zingers. Variety is the spice of life.",
+}
+
+const encounter6 = {
+    location: ["random", "city", "outdoors", "cloudsea"],
+    combat: false,
+    extraHard: false,
+    title: "A bird starts squawking and drops an envelope...",
+    descripton: "A hawk-like bird drops a wax-sealed envelope with the players, then flies away. The envelope contains a brief letter saying, 'If you are reading this letter, my familiar has determined that you are a good candidate to assist with a task. We need help transporting a sensitive and fragile item. Please come to the Grand Cloister on the center of Polpran and ask for Miztrum the Eye.'",
+    reward: "A potential quest.",
+    dmNotes: "Story hook for the players. Feel free to change details, but the general prompt of receiving a quest letter is always great.",
+}
+
+const encounter7 = {
+    location: ["random", "outdoors", "dungeon"],
+    combat: false,
+    extraHard: false,
+    title: "A man is trapped under debris...",
+    descripton: "A muscular, but extremely wounded man is trapped underneath debris. If outdoors, it's a tree or some stones. In a dungeon, it could be a trap or stone or a collapsed wall. Either way, a DC 20 strength check (lowered by 5 for each participating player) will free him. Or if the player's spend 2d4 hours, they can free him. Once freed, he will reward the players and start running away. He'll be muttering, 'Verlacht is gonna kill me...' while leaving. If the player's don't save him, he'll scream incessantly until out of earshot.",
+    reward: "TBD, maybe 50 gold.",
+    dmNotes: "Use the Verlacht bit or not. Who is he? A merchant? Bandit leader? General?",
+}
+
+const encounter8 = {
+    location: ["random", "outdoors", "dungeon", "city", "cloudsea"],
+    combat: true,
+    extraHard: false,
+    title: "Test for combat logic and looping.",
+    descripton: "How many iterations will it take to get this one?",
 }
 
 let encounterMap = new Map([
@@ -51,6 +101,11 @@ let encounterMap = new Map([
     [1, encounter1],
     [2, encounter2],
     [3, encounter3],
+    [4, encounter4],
+    [5, encounter5],
+    [6, encounter6],
+    [7, encounter7],
+    [8, encounter8],
 ]);
 
 const generateEncounterButton = document.getElementById("annoying-button"),
