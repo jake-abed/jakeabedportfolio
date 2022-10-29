@@ -42,7 +42,7 @@ const encounter3 = {
     location: ["random", "outdoors", "dungeon"],
     combat: false,
     extraHard: false,
-    title: "A glowing orb with a disempbodied voice approaches...",
+    title: "A glowing orb with a disembodied voice approaches...",
     description: "A glowing orb with a disembodied and monstrously booming voice approaches from behind a nearby object. Tree, coffin, building, whatever. It says that if you can answer its riddles and questions correctly, it will reward you handsomely. The first one is a riddle: 'We can be fast, we can be slow, We sometimes fly yet fall so low. We bring bout life, we can also kill.  Many & everywhere, we are hot, cold, moving, or still. Who are we?' The answer is 'We Are Water'. If they clown the light for riddle being mediocre, he suggests they come up with a better one. The second question is history check or theology check on the land. DC 15. For the Cloud Sea, the question is 'What year was the dissolution of the first Aarokocran Dominion?' The answer is '0 PD or 0 Post Dominion' as a kind of trick question. The final question is 'Three children have three loaves of bread each. They invite three more friends over, each with one loaf of bread. They then slice each loaf of bread into nine slices. They then invite over three more friends, then divide the bread evenly amongst them all. Assuming each child is only hungry enough to eat two slices of bread (there is some jam and butter as well), how many loaves are left over?' The answer is 4.",
     reward: "Ring Of Truths",
     dmNotes: "This one's a doozy. Have fun.",
@@ -123,6 +123,7 @@ const generateEncounterButton = document.getElementById("annoying-button"),
       extraHardValue = document.getElementById("extra-hard"),
       encounterTitleDisplay = document.getElementById("encounter-title"),
       encounterDescriptionDisplay = document.getElementById("encounter-description"),
+      encounterEnemiesDisplay = document.getElementById("encounter-enemies"),
       encounterRewardDisplay = document.getElementById("encounter-rewards"),
       encounterDMNotesDisplay = document.getElementById("encounter-dm-notes");
 
