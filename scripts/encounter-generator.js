@@ -53,7 +53,7 @@ const encounter4 = {
     combat: false,
     extraHard: false,
     title: "A small gargoyle sits abjectly in the corner of the room.",
-    descripton: "The tiniest gargoyle sits in the corner of the room, looking immensely gloomy. He says he lost his staff and can't prop himself menacingly on any parapets or columns. If the party searches the room, they'll notice that the gargoyle's staff is under a large pile of rubble. DC 10 perception. To clear the rubble, it'll require a strength check of DC 20 - 5 per participating player. A DC 15 perception check will reveal two opaline gems about a half inch in diameter in the rubble. They are the gargoyle's eyes.",
+    description: "The tiniest gargoyle sits in the corner of the room, looking immensely gloomy. He says he lost his staff and can't prop himself menacingly on any parapets or columns. If the party searches the room, they'll notice that the gargoyle's staff is under a large pile of rubble. DC 10 perception. To clear the rubble, it'll require a strength check of DC 20 - 5 per participating player. A DC 15 perception check will reveal two opaline gems about a half inch in diameter in the rubble. They are the gargoyle's eyes.",
     reward: "If they keep the opals, they are worth 20gp each. If they return the opals, the gargoyle will offer to accompany them on their journey. He has 200 HP, can carry one item for the party, has 20 AC, but only deals 1d4 damager with a +5 attack modifier. He's very weak.",
     dmNotes: "The small gargoyle's name is Grostni and he likes blood-splattered walls, the smell of noodles, and cats.",
 }
@@ -63,7 +63,7 @@ const encounter5 = {
     combat: false,
     extraHard: false,
     title: "A bird shits on a random player's head.",
-    descripton: "A large white and grey bird craps on one of the player's heads.",
+    description: "A large white and grey bird craps on one of the player's heads.",
     reward: "Nope.",
     dmNotes: "Yeah, they can't all be zingers. Variety is the spice of life.",
 }
@@ -73,7 +73,7 @@ const encounter6 = {
     combat: false,
     extraHard: false,
     title: "A bird starts squawking and drops an envelope...",
-    descripton: "A hawk-like bird drops a wax-sealed envelope with the players, then flies away. The envelope contains a brief letter saying, 'If you are reading this letter, my familiar has determined that you are a good candidate to assist with a task. We need help transporting a sensitive and fragile item. Please come to the Grand Cloister on the center of Polpran and ask for Miztrum the Eye.'",
+    description: "A hawk-like bird drops a wax-sealed envelope with the players, then flies away. The envelope contains a brief letter saying, 'If you are reading this letter, my familiar has determined that you are a good candidate to assist with a task. We need help transporting a sensitive and fragile item. Please come to the Grand Cloister on the center of Polpran and ask for Miztrum the Eye.'",
     reward: "A potential quest.",
     dmNotes: "Story hook for the players. Feel free to change details, but the general prompt of receiving a quest letter is always great.",
 }
@@ -83,7 +83,7 @@ const encounter7 = {
     combat: false,
     extraHard: false,
     title: "A man is trapped under debris...",
-    descripton: "A muscular, but extremely wounded man is trapped underneath debris. If outdoors, it's a tree or some stones. In a dungeon, it could be a trap or stone or a collapsed wall. Either way, a DC 20 strength check (lowered by 5 for each participating player) will free him. Or if the player's spend 2d4 hours, they can free him. Once freed, he will reward the players and start running away. He'll be muttering, 'Verlacht is gonna kill me...' while leaving. If the player's don't save him, he'll scream incessantly until out of earshot.",
+    description: "A muscular, but extremely wounded man is trapped underneath debris. If outdoors, it's a tree or some stones. In a dungeon, it could be a trap or stone or a collapsed wall. Either way, a DC 20 strength check (lowered by 5 for each participating player) will free him. Or if the player's spend 2d4 hours, they can free him. Once freed, he will reward the players and start running away. He'll be muttering, 'Verlacht is gonna kill me...' while leaving. If the player's don't save him, he'll scream incessantly until out of earshot.",
     reward: "TBD, maybe 50 gold.",
     dmNotes: "Use the Verlacht bit or not. Who is he? A merchant? Bandit leader? General?",
 }
@@ -93,7 +93,15 @@ const encounter8 = {
     combat: true,
     extraHard: false,
     title: "Test for combat logic and looping.",
-    descripton: "How many iterations will it take to get this one?",
+    description: "How many iterations will it take to get this one?",
+}
+
+const encounter9 = {
+    location: ["random", "outdoors", "dungeon", "city"],
+    combat: true,
+    extraHard: false,
+    title: "Test 2 for combat logic and looping.",
+    description: "How many iterations will it take to get this second one?",
 }
 
 let encounterMap = new Map([
@@ -106,6 +114,7 @@ let encounterMap = new Map([
     [6, encounter6],
     [7, encounter7],
     [8, encounter8],
+    [9, encounter9],
 ]);
 
 const generateEncounterButton = document.getElementById("annoying-button"),
@@ -128,16 +137,27 @@ function updateEncounterPreferences() {
     encounterPreferences.extraHard = (extraHardValue.value === "true");
 }
 
+let loopNumber = 1;
+
 function randomEncounter() {
-    let encounterPick = encounterMap.get(Math.floor((Math.random()*4)));
-    let encounterPickLocation = encounterPick.location;
+    const encounterPick = encounterMap.get(Math.floor((Math.random()*10)));
+    const encounterPickLocation = encounterPick.location; 
+    const encounterPickCombat = encounterPick.combat;
     if (!encounterPickLocation.includes(encounterPreferences.setting)) {
+        console.log("This has looped " + loopNumber + " times.");
+        loopNumber++;
+        return randomEncounter();
+    }
+    if (!encounterPickCombat == encounterPreferences.combat) {
+        console.log("This has looped " + loopNumber + " times.");
+        loopNumber++;
         return randomEncounter();
     }
     encounterTitleDisplay.innerHTML = encounterPick.title;
     encounterDescriptionDisplay.innerHTML = encounterPick.description;
     encounterPick.reward ? encounterRewardDisplay.innerHTML = encounterPick.reward : encounterRewardDisplay.innerHTML = "Oops! Lazy DM/Coder didn't finish his work.";
-    encounterPick.dmNotes ? encounterDMNotesDisplay.innerHTML = encounterPick.dmNotes : encounterDMNotesDisplay.innerHTML = "Sorry, the DM/Coder fucked up."
+    encounterPick.dmNotes ? encounterDMNotesDisplay.innerHTML = encounterPick.dmNotes : encounterDMNotesDisplay.innerHTML = "Sorry, the DM/Coder fucked up.";
+    loopNumber = 1;
     return;
 }
 
