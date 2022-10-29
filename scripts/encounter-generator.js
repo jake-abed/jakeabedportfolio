@@ -145,12 +145,10 @@ function randomEncounter() {
     const encounterPickLocation = encounterPick.location; 
     const encounterPickCombat = encounterPick.combat;
     if (!encounterPickLocation.includes(encounterPreferences.setting)) {
-        console.log("This has looped " + loopNumber + " times.");
         loopNumber++;
         return randomEncounter();
     }
     if (!encounterPickCombat == encounterPreferences.combat) {
-        console.log("This has looped " + loopNumber + " times.");
         loopNumber++;
         return randomEncounter();
     }
@@ -158,6 +156,7 @@ function randomEncounter() {
     encounterDescriptionDisplay.innerHTML = encounterPick.description;
     encounterPick.reward ? encounterRewardDisplay.innerHTML = encounterPick.reward : encounterRewardDisplay.innerHTML = "Oops! Lazy DM/Coder didn't finish his work.";
     encounterPick.dmNotes ? encounterDMNotesDisplay.innerHTML = encounterPick.dmNotes : encounterDMNotesDisplay.innerHTML = "Sorry, the DM/Coder fucked up.";
+    console.log("This has looped " + loopNumber + " times.")
     loopNumber = 1;
     return;
 }
