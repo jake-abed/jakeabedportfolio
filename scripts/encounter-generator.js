@@ -127,7 +127,9 @@ const generateEncounterButton = document.getElementById("annoying-button"),
       encounterRewardDisplay = document.getElementById("encounter-rewards"),
       encounterDMNotesDisplay = document.getElementById("encounter-dm-notes");
 
-
+function selectRandomArrayEntry(anArray) {
+    return anArray[Math.floor(Math.random()*anArray.length)]
+}
 function logDumbMessage() {
     return console.log(encounterPreferences);
 }
