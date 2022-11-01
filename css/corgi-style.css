@@ -190,6 +190,7 @@ select {
     font-size: medium;
     font-family: 'Nanum Gothic', sans-serif;
     background-color: #ebe6e1;
+    color: black;
     border:#313638 solid 1px;
     display: block;
     border-radius: 4px;
@@ -198,6 +199,7 @@ select {
 option {
     margin:0 auto;
     width: 90%;
+    color:black;
     height: 1.75rem;
     background-color: #ebe6e1;
     border-radius: 10px;
