@@ -1,32 +1,38 @@
 body {
-    background-color: #E8E9EB;
+    background-color: #fff2e3;
 }
-h1, h2, h3, h4 {
-    font-family: impact;
+h1 {
+    font-family: 'Monoton', cursive;
+}
+
+h2, h3, h4 {
+    font-family: 'Goldman', cursive;
 }
 
 h1{
-    font-size: 40px;
+    font-size: 48px;
+    line-height: 3rem;
     text-align: center;
-    font-weight: 200;
+    word-spacing: 10px;
+    font-weight: 500;
     margin: 0 auto;
 }
 
 h2 {
-    font-weight: 100;
-    font-size: 24px;
+    font-weight: 400;
+    font-size: 32px;
     text-align: center;
     margin: .5rem auto;
 }
 
 h3 {
-    font-weight: 100;
-    font-size: 20px;
+    font-weight: 400;
+    font-size: 24px;
     margin: 0.5em auto;
 }
 
 p {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
     font-size: large;
 }
 
@@ -171,7 +177,7 @@ a:hover {
     margin: 0 auto;
     border-radius: 3px;
     resize:none;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
     font-size: medium;
     padding: 6px 6px;
 }
@@ -181,24 +187,31 @@ select {
     width: 90%;
     min-width: 3rem;
     height: 1.75rem;
-    font-size: small;
+    font-size: medium;
+    font-family: 'Nanum Gothic', sans-serif;
     display: block;
 }
 
 label {
     display: block;
     width: 90%;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: medium;
     margin: .75rem auto;
 }
 
 legend {
     margin: 1.5em auto;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: medium;
     width: 90%;
 }
 
 input {
     display: inline;
     margin: 0 auto;
+    font-size: medium;
+    font-family: 'Nanum Gothic', sans-serif;
     vertical-align: middle;
 }
 
@@ -209,7 +222,7 @@ input {
 }
 
 #encounter-box {
-    background-color: #e0DFD5;
+    background-color: #ebe6e1;
     box-shadow: 0 0 0 10px #313638, 0 0 0 20px #F06543, 0 0 0 30px #F09D51;
     border-radius: 3px;
     margin: 3.5rem auto;
