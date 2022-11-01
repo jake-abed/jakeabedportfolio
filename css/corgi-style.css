@@ -124,13 +124,14 @@ a:hover {
 
 #discord-link {
     display: block;
+    font-family: 'Audiowide', cursive;
     color: white;
     border-radius: 1rem;
     background: black;
     margin: 0 auto;
     text-align: center;
     padding: 5px 10px;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 #annoying-button-box {
@@ -147,6 +148,7 @@ a:hover {
     vertical-align: middle;
     max-width: 400px;
     color: #F09D51;
+    font-family: 'Audiowide', cursive;
     box-shadow:  0 0 0 5px #F09D51;
     border-radius: 1rem;
     background-color: #313638;
