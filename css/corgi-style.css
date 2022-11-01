@@ -6,7 +6,7 @@ h1 {
 }
 
 h2, h3, h4 {
-    font-family: 'Goldman', cursive;
+    font-family: 'Audiowide', cursive;
 }
 
 h1{
@@ -20,14 +20,14 @@ h1{
 
 h2 {
     font-weight: 400;
-    font-size: 32px;
+    font-size: 24px;
     text-align: center;
     margin: .5rem auto;
 }
 
 h3 {
     font-weight: 400;
-    font-size: 24px;
+    font-size: 20px;
     margin: 0.5em auto;
 }
 
@@ -64,10 +64,10 @@ div {
     color: white;
     box-shadow:  0 0 0 5px #F06543, 0 0 0 10px #F09D51, 0 0 0 15px #313638;
     border-radius: 1rem;
-    background-color: black;
-    font-family: impact;
+    background-color: #313638;
+    font-family: 'Audiowide', cursive;
     padding: .25rem .10rem;
-    font-size: 1.5em;
+    font-size: 1rem;
     text-align: center;
     color: white;
     margin: 0 auto;
@@ -189,7 +189,19 @@ select {
     height: 1.75rem;
     font-size: medium;
     font-family: 'Nanum Gothic', sans-serif;
+    background-color: #ebe6e1;
+    border:#313638 solid 1px;
     display: block;
+    border-radius: 4px;
+}
+
+option {
+    margin:0 auto;
+    width: 90%;
+    height: 1.75rem;
+    background-color: #ebe6e1;
+    border-radius: 10px;
+    border:#313638 solid 1px;
 }
 
 label {
