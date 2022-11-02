@@ -143,18 +143,37 @@ const masterEnemyArray = [
     {name: "Peryton", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "monster", cr: 2, xpVal: 450},
     {name: "Gelatinous Cube", potentialLocations: ["random", "dungeon"], enemyType: "monster", cr: 2, xpVal: 450},
     {name: "Quadrone", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "construct", cr: 1, xpVal: 200},
+    {name: "Giant Eagle", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "animal", cr: 1, xpVal: 200},
+    {name: "Imp", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "monster", cr: 1, xpVal: 200},
+    {name: "Darkmantle", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "monster", cr: 0.5, xpVal: 100},
+    {name: "Hippogriff", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "monster", cr: 1, xpVal: 200},
+    {name: "Specter", potentialLocations: ["random", "city", "dungeon", "cloudsea"], enemyType: "undead", cr: 1, xpVal: 200},
+    {name: "Will-o-Wisp", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "undead", cr: 2, xpVal: 450},
+    {name: "Rug Of Smothering AKA YR MOM", potentialLocations: ["random", "city", "cloudsea"], enemyType: "construct", cr: 2, xpVal: 450},
+    {name: "Scarecrow", potentialLocations: ["random", "outdoors"], enemyType: "construct", cr: 1, xpVal: 200},
+    {name: "Winged Kobold", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "npc", cr: 0.25, xpVal: 50}
 ]
 
 function populateEnemies(encounterCR, location, numberOfEnemies, enemyType) {
     const maxEnemyCR = encounterCR / numberOfEnemies;
     let remainingCR = encounterCR;
+    let cumulativeCR = 0;
     let enemyArray = [];
-    return;
+    let i = 0;
+    while (Math.round(cumulativeCR) != encounterCR && cumulativeCR < encounterCR && enemyArray.length < numberOfEnemies) {
+        enemyArray.push(selectEnemyFromArray(location, maxEnemyCR, enemyType));
+        remainingCR -= enemyArray[i].cr;
+        cumulativeCR += enemyArray[i].cr;
+        console.log(enemyArray);
+        i++;
+    }
+    if (cumulativeCR >= (encounterCR - 1)) return enemyArray;
+    else return populateEnemies(encounterCR, location, numberOfEnemies, enemyType);
 }
 
 function selectEnemyFromArray(location, enemyCR, enemyType) {
     const selectedMonster = masterEnemyArray[Math.floor(Math.random()*masterEnemyArray.length)];
-    if (selectedMonster.enemyType != enemyType || selectedMonster.cr > enemyCR || selectedMonster.potentialLocations.includes(location) == false) {
+    if (selectedMonster.enemyType != enemyType || selectedMonster.cr > enemyCR || selectedMonster.cr < enemyCR/4 || selectedMonster.potentialLocations.includes(location) == false) {
         return selectEnemyFromArray(location, enemyCR, enemyType);
     } else {
         return selectedMonster;
