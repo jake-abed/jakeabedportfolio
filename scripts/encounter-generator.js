@@ -124,18 +124,42 @@ const masterEncounterArray = [
     }
 ]
 
-let encounterMap = new Map([
-    [0, encounter0],
-    [1, encounter1],
-    [2, encounter2],
-    [3, encounter3],
-    [4, encounter4],
-    [5, encounter5],
-    [6, encounter6],
-    [7, encounter7],
-    [8, encounter8],
-    [9, encounter9],
-]);
+/*
+Master enemy array template:
+    {name: string, potentialLocations: [array of strings], enemyType: string, cr: num, xpVal: num}
+*/
+
+const masterEnemyArray = [
+    {name: "Bandit", potentialLocations: ["random", "city", "outdoors"], enemyType: "npc", cr: 0.125, xpVal: 25,},
+    {name: "Wererat", potentialLocations: ["random", "city", "outdoors", "dungeon"], enemyType: "monster", cr: 2, xpVal: 350},
+    {name: "Grell", potentialLocations: ["random", "outdoors", "dungeon", "cloudsea"], enemyType: "monster", cr: 3, xpVal: 700},
+    {name: "Flying Snake", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "animal", cr: 0.125, xpVal: 25},
+    {name: "Gargoyle", potentialLocations: ["random", "cloudsea", "city", "dungeon"], enemyType: "construct", cr: 2, xpVal: 450},
+    {name: "Killer Sky Whale", potentialLocations: ["cloudsea"], enemyType: "animal", cr: 3, xpVal: 700},
+    {name: "Pirate (Thug)", potentialLocations: ["city", "cloudsea"], enemyType: "npc", cr: 0.5, xpVal: 100},
+    {name: "Dire Wolf", potentialLocations: ["random", "outdoors"], enemyType: "animal", cr: 1, xpVal: 200},
+    {name: "Stirge", potentialLocations: ["random", "outdoors", "dungeon", "cloudsea"], enemyType: "monster", cr: 0.125, xpVal: 25},
+    {name: "Skeleton", potentialLocations: ["random", "outdoors", "dungeon"], enemyType: "undead", cr: 0.125, xpVal: 50},
+    {name: "Peryton", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "monster", cr: 2, xpVal: 450},
+    {name: "Gelatinous Cube", potentialLocations: ["random", "dungeon"], enemyType: "monster", cr: 2, xpVal: 450},
+    {name: "Quadrone", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "construct", cr: 1, xpVal: 200},
+]
+
+function populateEnemies(encounterCR, location, numberOfEnemies, enemyType) {
+    const maxEnemyCR = encounterCR / numberOfEnemies;
+    let remainingCR = encounterCR;
+    let enemyArray = [];
+    return;
+}
+
+function selectEnemyFromArray(location, enemyCR, enemyType) {
+    const selectedMonster = masterEnemyArray[Math.floor(Math.random()*masterEnemyArray.length)];
+    if (selectedMonster.enemyType != enemyType || selectedMonster.cr > enemyCR || selectedMonster.potentialLocations.includes(location) == false) {
+        return selectEnemyFromArray(location, enemyCR, enemyType);
+    } else {
+        return selectedMonster;
+    }
+}
 
 const generateEncounterButton = document.getElementById("annoying-button"),
       encounterSettingValue = document.getElementById("encounter-setting"),
