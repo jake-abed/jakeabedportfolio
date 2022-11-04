@@ -39,7 +39,7 @@
 		<div id="intro-box">
 			<h2>Need An Encounter For Your D&D Session?</h2>
 			<p>This page will help you quickly generate an encounter from pre-filled assets.</p>
-			<p>All you have to do is select setting, acceptable danger levels, and what types of encounters are acceptable.</p>
+			<p>All you have to do is select setting, choose whether there will be combat, and what the combat rating for the encounter will be. Please note that this assumes a party of four.</p>
 		</div>
 		<div class="encounter-input-container">
 			<label for="encounter-setting">What setting would you like the encounter to be in?</label>
@@ -55,10 +55,35 @@
 				<option value="true">Yes</option>
 				<option value="false">No</option>
 			</select>
-			<label for="extra-hard">Want this to be extra hard?</label>
-			<select id="extra-hard">
-				<option value="false">No</option>
-				<option value="true">Yes</option>
+			<label for="cr">What is your desired Combat Rating? (Only applicable for combat encounters)</label>
+			<select id="cr">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				<option value="13">13</option>
+				<option value="14">14</option>
+				<option value="14">14</option>
+				<option value="15">15</option>
+				<option value="16">16</option>
+				<option value="17">18</option>
+				<option value="19">19</option>
+				<option value="20">20</option>
+			</select>
+			<label for="number-of-players">How many players are attending the session? (This scales Combat Rating)</label>
+			<select id="number-of-players">
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
 			</select>
 		</div>
 		<div id="annoying-button-box">

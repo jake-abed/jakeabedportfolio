@@ -5,8 +5,12 @@ Preferences Object - Contains the preferences from the user input.
 const encounterPreferences = { //Set to default values
     setting: "random",
     combat: false,
-    extraHard: false,
+    desiredCR: 1,
+    numOfPlayers: 3,
+    calculatedCR: 6,
 }
+
+let loopBreakpoint = 200; //If this reaches zero, the random generation was too inefficient and errors out.
 
 const masterEncounterArray = [
     {
@@ -122,7 +126,23 @@ const masterEncounterArray = [
         description: undefined,
         rewardTable: undefined
     }
-]
+];
+
+/*masterCombatEncounterArray object template : 
+    {
+        title:
+        location:
+        minCR:
+        description:
+        enemyType:
+        singleEnemy:
+        rewardTable:
+        dmNotes:
+    }
+
+*/
+
+const masterCombatEncounterArray = [];
 
 /*
 Master enemy array template:
@@ -130,60 +150,63 @@ Master enemy array template:
 */
 
 const masterEnemyArray = [
-    {name: "Bandit", potentialLocations: ["random", "city", "outdoors"], enemyType: "npc", cr: 0.125, xpVal: 25,},
-    {name: "Wererat", potentialLocations: ["random", "city", "outdoors", "dungeon"], enemyType: "monster", cr: 2, xpVal: 350},
-    {name: "Grell", potentialLocations: ["random", "outdoors", "dungeon", "cloudsea"], enemyType: "monster", cr: 3, xpVal: 700},
-    {name: "Flying Snake", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "animal", cr: 0.125, xpVal: 25},
-    {name: "Gargoyle", potentialLocations: ["random", "cloudsea", "city", "dungeon"], enemyType: "construct", cr: 2, xpVal: 450},
-    {name: "Killer Sky Whale", potentialLocations: ["cloudsea"], enemyType: "animal", cr: 3, xpVal: 700},
-    {name: "Pirate (Thug)", potentialLocations: ["city", "cloudsea"], enemyType: "npc", cr: 0.5, xpVal: 100},
-    {name: "Dire Wolf", potentialLocations: ["random", "outdoors"], enemyType: "animal", cr: 1, xpVal: 200},
-    {name: "Stirge", potentialLocations: ["random", "outdoors", "dungeon", "cloudsea"], enemyType: "monster", cr: 0.125, xpVal: 25},
-    {name: "Skeleton", potentialLocations: ["random", "outdoors", "dungeon"], enemyType: "undead", cr: 0.125, xpVal: 50},
-    {name: "Peryton", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "monster", cr: 2, xpVal: 450},
+    {name: "Bandit", potentialLocations: ["random", "city", "outdoors"], enemyType: "npc", cr: 1, xpVal: 25,},
+    {name: "Wererat", potentialLocations: ["random", "city", "outdoors", "dungeon"], enemyType: "monster", cr: 16, xpVal: 350},
+    {name: "Grell", potentialLocations: ["random", "outdoors", "dungeon", "cloudsea"], enemyType: "monster", cr: 24, xpVal: 700},
+    {name: "Flying Snake", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "animal", cr: 1, xpVal: 25},
+    {name: "Gargoyle", potentialLocations: ["random", "cloudsea", "city", "dungeon"], enemyType: "construct", cr: 16, xpVal: 450},
+    {name: "Killer Sky Whale", potentialLocations: ["cloudsea"], enemyType: "animal", cr: 24, xpVal: 700},
+    {name: "Pirate (Thug)", potentialLocations: ["city", "cloudsea"], enemyType: "npc", cr: 4, xpVal: 100},
+    {name: "Dire Wolf", potentialLocations: ["random", "outdoors"], enemyType: "animal", cr: 8, xpVal: 200},
+    {name: "Stirge", potentialLocations: ["random", "outdoors", "dungeon", "cloudsea"], enemyType: "monster", cr: 1, xpVal: 25},
+    {name: "Skeleton", potentialLocations: ["random", "outdoors", "dungeon"], enemyType: "undead", cr: 1, xpVal: 50},
+    {name: "Peryton", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "monster", cr: 16, xpVal: 450},
     {name: "Gelatinous Cube", potentialLocations: ["random", "dungeon"], enemyType: "monster", cr: 2, xpVal: 450},
-    {name: "Quadrone", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "construct", cr: 1, xpVal: 200},
-    {name: "Giant Eagle", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "animal", cr: 1, xpVal: 200},
-    {name: "Imp", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "monster", cr: 1, xpVal: 200},
-    {name: "Darkmantle", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "monster", cr: 0.5, xpVal: 100},
-    {name: "Hippogriff", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "monster", cr: 1, xpVal: 200},
-    {name: "Specter", potentialLocations: ["random", "city", "dungeon", "cloudsea"], enemyType: "undead", cr: 1, xpVal: 200},
-    {name: "Will-o-Wisp", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "undead", cr: 2, xpVal: 450},
-    {name: "Rug Of Smothering AKA YR MOM", potentialLocations: ["random", "city", "cloudsea"], enemyType: "construct", cr: 2, xpVal: 450},
-    {name: "Scarecrow", potentialLocations: ["random", "outdoors"], enemyType: "construct", cr: 1, xpVal: 200},
-    {name: "Winged Kobold", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "npc", cr: 0.25, xpVal: 50}
+    {name: "Quadrone", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "construct", cr: 8, xpVal: 200},
+    {name: "Giant Eagle", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "animal", cr: 8, xpVal: 200},
+    {name: "Imp", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "monster", cr: 8, xpVal: 200},
+    {name: "Darkmantle", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "monster", cr: 4, xpVal: 100},
+    {name: "Hippogriff", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "monster", cr: 8, xpVal: 200},
+    {name: "Specter", potentialLocations: ["random", "city", "dungeon", "cloudsea"], enemyType: "undead", cr: 8, xpVal: 200},
+    {name: "Will-o-Wisp", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "undead", cr: 16, xpVal: 450},
+    {name: "Rug Of Smothering AKA YR MOM", potentialLocations: ["random", "city", "cloudsea"], enemyType: "construct", cr: 16, xpVal: 450},
+    {name: "Scarecrow", potentialLocations: ["random", "outdoors"], enemyType: "construct", cr: 8, xpVal: 200},
+    {name: "Winged Kobold", potentialLocations: ["random", "outdoors", "cloudsea"], enemyType: "npc", cr: 2, xpVal: 50},
+    {name: "Helmed Horror", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "construct", cr: 32, xpVal: 1100},
+    {name: "Flesh Golem", potentialLocations: ["random", "dungeon"], enemyType: "construct", cr: 40, xpVal: 1800},
+    {name: "Pentadrone", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "construct", cr: 16, xpVal: 450},
+    {name: "Clay Golem", potentialLocations: ["random", "dungeon"], enemyType: "construct", cr: 72, xpVal: 5000},
+    {name: "Githyanki Warrior", potentialLocations: ["random", "dungeon"], enemyType: "npc", cr: 24, xpVal: 700},
+    {name: "Drow Elite Warrior", potentialLocations: ["random", "dungeon"], enemyType: "npc", cr: 40, xpVal: 1800},
+    {name: "Assassin", potentialLocations: ["random", "city", "dungeon", "cloudsea"], enemyType: "npc", cr: 64, xpVal: 3900},
+    {name: "Drider", potentialLocations: ["random", "dungeon"], enemyType: "monster", cr: 48, xpVal: 2300},
+    {name: "Bulette", potentialLocations: ["random", "outdoors"], enemyType: "monster", cr: 40, xpVal: 1800},
+    {name: "Phase Spider", potentialLocations: ["random", "dungeon"], enemyType: "monster", cr: 24, xpVal: 700},
+    {name: "Roper", potentialLocations: ["random", "dungeon"], enemyType: "monster", cr: 40, xpVal: 1800},
+    {name: "Yuan-Ti Malison", potentialLocations: ["random", "dungeon", "cloudsea"], enemyType: "monster", cr: 24, xpVal: 700},
+    {name: "Yuan-Ti Abomination", potentialLocations: ["random", "dungeon"], enemyType: "monster", cr: 56, xpVal: 2900},
+    {name: "Minotaur", potentialLocations: ["random", "dungeon"], enemyType: "monster", cr: 24, xpVal: 700},
+    {name: "Owlbear", potentialLocations: ["random", "outdoors"], enemyType: "monster", cr: 24, xpVal: 700},
+    {name: "Hydra", potentialLocations: ["random", "dungeon"], enemyType: "monster", cr: 64, xpVal: 3900},
+    {name: "Behir", potentialLocations: ["random", "outdoors", "dungeon"], enemyType: "monster", cr: 88, xpVal: 7200},
+    {name: "Doppelganger", potentialLocations: ["random", "city", "outdoors", "dungeon"], enemyType: "monster", cr: 24, xpVal: 700},
+    {name: "Basilisk", potentialLocations: ["random", "dungeon"], enemyType: "monster", cr: 24, xpVal: 700},
+    {name: "Bone Naga", potentialLocations: ["random", "dungeon"], enemyType: "undead", cr: 32, xpVal: 1100},
+    {name: "Wraith", potentialLocations: ["random", "city", "outdoors", "cloudsea", "dungeon"], enemyType: "undead", cr: 40, xpVal: 1800},
+    {name: "Banshee", potentialLocations: ["random", "city", "outdoors", "dungeon", "cloudsea"], enemyType: "undead", cr: 32, xpVal: 1100},
+    {name: "Vampire Spawn", potentialLocations: ["random", "city", "outdoors", "dungeon"], enemyType: "undead", cr: 40, xpVal: 1800},
+    {name: "Vampire", potentialLocations: ["random", "city", "outdoors", "dungeon", "cloudsea"], enemyType: "undead", cr: 104, xpVal: 10000},
+    {name: "Young Copper Dragon", potentialLocations: ["random", "city", "outdoors", "cloudsea"], enemyType: "dragon", cr: 56, xpVal: 2900},
+    {name: "Young Red Dragon", potentialLocations: ["random", "city", "outdoors", "cloudsea", "dungeon"], enemyType: "dragon", cr: 80, xpVal: 5900},
+    {name: "Young Blue Dragon", potentialLocations: ["random", "city", "outdoors", "cloudsea", "dungeon"], enemyType: "dragon", cr: 72, xpVal: 5000},
+    {name: "Adult Black Dragon", potentialLocations: ["random", "city", "outdoors", "cloudsea", "dungeon"], enemyType: "dragon", cr: 112, xpVal: 11500}
 ]
-
-function populateEnemies(encounterCR, location, numberOfEnemies, enemyType) {
-    const maxEnemyCR = encounterCR / numberOfEnemies;
-    let remainingCR = encounterCR;
-    let cumulativeCR = 0;
-    let enemyArray = [];
-    let i = 0;
-    while (Math.round(cumulativeCR) != encounterCR && cumulativeCR < encounterCR && enemyArray.length < numberOfEnemies) {
-        enemyArray.push(selectEnemyFromArray(location, maxEnemyCR, enemyType));
-        remainingCR -= enemyArray[i].cr;
-        cumulativeCR += enemyArray[i].cr;
-        console.log(enemyArray);
-        i++;
-    }
-    if (cumulativeCR >= (encounterCR - 1)) return enemyArray;
-    else return populateEnemies(encounterCR, location, numberOfEnemies, enemyType);
-}
-
-function selectEnemyFromArray(location, enemyCR, enemyType) {
-    const selectedMonster = masterEnemyArray[Math.floor(Math.random()*masterEnemyArray.length)];
-    if (selectedMonster.enemyType != enemyType || selectedMonster.cr > enemyCR || selectedMonster.cr < enemyCR/4 || selectedMonster.potentialLocations.includes(location) == false) {
-        return selectEnemyFromArray(location, enemyCR, enemyType);
-    } else {
-        return selectedMonster;
-    }
-}
 
 const generateEncounterButton = document.getElementById("annoying-button"),
       encounterSettingValue = document.getElementById("encounter-setting"),
       nonCombatValue = document.getElementById("is-combat"),
-      extraHardValue = document.getElementById("extra-hard"),
+      crValue = document.getElementById("cr"),
+      numOfPlayersValue = document.getElementById("number-of-players"),
       encounterTitleDisplay = document.getElementById("encounter-title"),
       encounterDescriptionDisplay = document.getElementById("encounter-description"),
       encounterEnemiesDisplay = document.getElementById("encounter-enemies"),
@@ -194,14 +217,32 @@ function selectRandomArrayEntry(anArray) {
     return anArray[Math.floor(Math.random()*anArray.length)]
 }
 
-function logDumbMessage() {
-    return console.log(encounterPreferences);
+function createPossibleEnemyList(maxEnemyCR, location, enemyType) {
+    let i = 0;
+    let enemyListReturn = [];
+    while (i < masterEnemyArray.length) {
+        let currentMasterEnemyArrayEntry = masterEnemyArray[i];
+        if (currentMasterEnemyArrayEntry.cr <= maxEnemyCR && currentMasterEnemyArrayEntry.potentialLocations.includes(location) == true && (currentMasterEnemyArrayEntry.enemyType == enemyType || enemyType == "all")) {
+            enemyListReturn.push(masterEnemyArray[i]);
+            i++;
+        } else {
+            i++;
+        }
+    }
+    return enemyListReturn;
 }
+
+
 
 function updateEncounterPreferences() {
     encounterPreferences.setting = encounterSettingValue.value;
     encounterPreferences.combat = (nonCombatValue.value === "true");
-    encounterPreferences.extraHard = (extraHardValue.value === "true");
+    encounterPreferences.desiredCR = Number(crValue.value);
+    encounterPreferences.numOfPlayers = Number(numOfPlayersValue.value);
+    encounterPreferences.calculatedCR = 2 * encounterPreferences.desiredCR * encounterPreferences.numOfPlayers;
+    encounterPreferences.maxEnemyCR = encounterPreferences.desiredCR * 8;
+    encounterPreferences.possibleEnemyList = createPossibleEnemyList(encounterPreferences.maxEnemyCR, encounterPreferences.setting, "all");
+    console.log(encounterPreferences);
 }
 
 /* Old Random Encounter Generator
@@ -226,7 +267,5 @@ function randomEncounter() {
     return;
 }
 */
-
 generateEncounterButton.addEventListener("click", updateEncounterPreferences, false);
 //generateEncounterButton.addEventListener("click", randomEncounter, false);
-generateEncounterButton.addEventListener("click", logDumbMessage, false);
