@@ -1,18 +1,19 @@
 "use strict";
-const generateEncounterButton = document.getElementById("annoying-button"),
-      encounterSettingValue = document.getElementById("encounter-setting"),
-      nonCombatValue = document.getElementById("is-combat"),
-      crValue = document.getElementById("cr"),
-      numOfPlayersValue = document.getElementById("number-of-players"),
-      encounterTitleDisplay = document.getElementById("encounter-title"),
-      encounterDescriptionDisplay = document.getElementById("encounter-description"),
-      encounterEnemiesDisplay = document.getElementById("encounter-enemies"),
-      encounterRewardDisplay = document.getElementById("encounter-rewards"),
-      encounterDMNotesDisplay = document.getElementById("encounter-dm-notes");
+
+const GENERATE_ENCOUNTER_BUTTON = document.getElementById("annoying-button"),
+      ENCOUNTER_SETTING = document.getElementById("encounter-setting"),
+      IS_COMBAT = document.getElementById("is-combat"),
+      DESIRED_CR = document.getElementById("cr"),
+      NUM_OF_PLAYERS = document.getElementById("number-of-players"),
+      ENCOUNTER_TITLE_DISPLAY = document.getElementById("encounter-title"),
+      ENCOUNTER_DESC_DISPLAY = document.getElementById("encounter-description"),
+      ENCOUNTER_ENEMIES_DISPLAY = document.getElementById("encounter-enemies"),
+      ENCOUNTER_REWARD_DISPLAY = document.getElementById("encounter-rewards"),
+      ENCOUNTER_DM_NOTES_DISPLAY = document.getElementById("encounter-dm-notes");
 /*
 Preferences Object - Contains the preferences from the user input.
 */
-const encounterPreferences = { //Set to default values
+const ENCOUNTER_PREFERENCES = { //Set to default values
     setting: "random",
     combat: false,
     desiredCR: 1,
@@ -21,10 +22,10 @@ const encounterPreferences = { //Set to default values
         return this.desiredCR * this.numOfPlayers * 2;
     },
     update: function () {
-        this.setting = encounterSettingValue.value;
-        this.combat = (nonCombatValue.value === "true");
-        this.desiredCR = Number(crValue.value);
-        this.numOfPlayers = Number(numOfPlayersValue.value);
+        this.setting = ENCOUNTER_SETTING.value;
+        this.combat = (IS_COMBAT.value === "true");
+        this.desiredCR = Number(DESIRED_CR.value);
+        this.numOfPlayers = Number(NUM_OF_PLAYERS.value);
         this.maxEnemyCR = this.desiredCR * 8;
         if (this.combat == true) {
             this.possibleEnemyList = createPossibleEnemyList(this.maxEnemyCR, this.setting, "all");
@@ -33,7 +34,7 @@ const encounterPreferences = { //Set to default values
     },
 }
 
-const currentEncounter = {
+const CURRENT_ENCOUNTER = {
     title: null,
     description: null,
     requiredEnemy: null,
@@ -49,17 +50,14 @@ const currentEncounter = {
 
 let loopBreakpoint = 200; //If this reaches zero, the random generation was too inefficient and errors out.
 
-const masterEncounterArray = [
+const MASTER_ENCOUNTER_ARRAY = [
     {
         location: ["random", "city"],
         combat: false,
         title: "A shady merchant approaches...",
         description:    "A small human man approaches the party claiming to be a merchant. He says he has small trinkets to peddle. When speaking as this character, be sure to ramble. When asked about his wares, he's going to be evasive and vague. Truthfully, he's trying to stall and pickpocket a random party member. Roll for sleight of hand plus 5. He'll try to steal up to 5 gold coins, three times. If he succeeds, he'll show the party some random junk then leave suddenly and angrily. If the party detects him, they get the reward!",
         rewardTable: ["100 xp and 10 gold.", "100xp and 20 gold.", "100xp and 5 gold."],
-        dmNotes: "Adjust amount stolen, XP, and reward gold as needed for high level parties. Consider having him not steal from struggling players.",
-        chooseReward() {
-            return selectRandomArrayEntry(this.rewardTable);
-        }
+        dmNotes: "Adjust amount stolen, XP, and reward gold as needed for high level parties. Consider having him not steal from struggling players."
     },
 
     {
@@ -68,10 +66,7 @@ const masterEncounterArray = [
         title: "A decrepit priest cries out for alms and prayers...",
         description: "The party notices the tragic cries of a worn-down, old priest nearby. He is begging for prayers and potentially alms of any kind. The priest will lament that too few people pay him any mind and that the world needs more positivity and prayer. He makes sure to mention that any charity will do. When asked, his god will be whatever the local god is. If you are uncertain, insert a generic sun god nearby. For the cloud sea setting, he's worshipping the First God. There are no skill checks here, just a chance for the players to interact with a sad old man. If the players are kind and give him something, he will thank them and promise to pray for them. If the players pray with him, he will lead them in a quick, positive prayer and send them on their way.",
         rewardTable: ["None, potentially clemency from the DM in the future.", "A small effigy of the priest's god."],
-        dmNotes: "You can weave this into your story or just have this be an ethics check on your players.",
-        chooseReward() {
-            return selectRandomArrayEntry(this.rewardTable);
-        }
+        dmNotes: "You can weave this into your story or just have this be an ethics check on your players."
     },
 
     {
@@ -107,10 +102,7 @@ const masterEncounterArray = [
         title: "A bird shits on a random player's head.",
         description: "A large white and grey bird craps on one of the player's heads.",
         rewardTable: ["Poop.", "Nothing.", "A sense of pride and accomplishment."],
-        dmNotes: "Yeah, they can't all be zingers. Variety is the spice of life.",
-        chooseReward() {
-            return selectRandomArrayEntry(this.rewardTable);
-        }
+        dmNotes: "Yeah, they can't all be zingers. Variety is the spice of life."
     },
 
     {
@@ -133,29 +125,28 @@ const masterEncounterArray = [
 
     {
         location: ["random", "outdoors", "dungeon", "city", "cloudsea"],
-        combat: true,
-        title: "Test for combat logic and looping.",
-        description: "How many iterations will it take to get this one?",
+        combat: false,
+        title: "Test for logic and missing properties.",
+        description: "I'm really feeling this project right now.",
     },
 
     {
         location: ["random", "outdoors", "dungeon", "city"],
-        combat: true,
-        title: "Test 2 for combat logic and looping.",
-        description: "How many iterations will it take to get this second one?",
+        combat: false,
+        title: "Yet another test for logic and iterations.",
+        description: "Sheesh man.",
     },
-
+    
     {
-        location: undefined,
-        combat: true,
-        extraHard: false,
-        title: undefined,
-        description: undefined,
-        rewardTable: undefined
+        location: ["random", "outdoors", "city", "cloudsea"],
+        combat: false,
+        title: "You find a tortle, lying on his back helplessly...",
+        description: "Who has seen Blade Runner. This Tortle is just not having a good time. He's older, disheveled, and kind of dumpy looking right now. Can you blame him. He's just sobbing gently. Asking questions does nothing, poor dude is a just a total wreck.",
+        rewardTable: ["A letter of recommendation to join 'The Flying Flask' in Tiupran City", "A letter of recommendation to join 'Shifty Sevens Dice Club' in Tiupran City"],
     }
 ];
 
-/*masterCombatEncounterArray object template : 
+/*MASTER_COMBAT_ENCOUNTER object template : 
     {
         title:
         locations:
@@ -169,7 +160,7 @@ const masterEncounterArray = [
 
 */
 
-const masterCombatEncounterArray = [
+const MASTER_COMBAT_ENCOUNTER = [
     {
         title: "A lone monster lunges from the shadow and attacks your party!",
         locations: ["random", "city", "outdoors", "dungeon", "cloudsea"],
@@ -217,7 +208,7 @@ Master enemy array template:
     {name: string, potentialLocations: [array of strings], enemyType: string, cr: num, xpVal: num}
 */
 
-const masterEnemyArray = [
+const MASTER_ENEMY_ARRAY= [
     {name: "Bandit", potentialLocations: ["random", "city", "outdoors"], enemyType: "npc", cr: 1, xpVal: 25,},
     {name: "Wererat", potentialLocations: ["random", "city", "outdoors", "dungeon"], enemyType: "monster", cr: 16, xpVal: 350},
     {name: "Grell", potentialLocations: ["random", "outdoors", "dungeon", "cloudsea"], enemyType: "monster", cr: 24, xpVal: 700},
@@ -270,19 +261,21 @@ const masterEnemyArray = [
     {name: "Adult Black Dragon", potentialLocations: ["random", "city", "outdoors", "cloudsea", "dungeon"], enemyType: "dragon", cr: 112, xpVal: 11500}
 ]
 
+let potentialEncounters = [];
+
 function selectRandomArrayEntry(anArray) {
     return anArray[Math.floor(Math.random()*anArray.length)]
 }
 
 function createPossibleEnemyList(enemyType = "all", enemyName = undefined) {
-    const maxEnemyCR = encounterPreferences.calculatedCR();
-    const location = encounterPreferences.setting;
+    const maxEnemyCR = ENCOUNTER_PREFERENCES.calculatedCR();
+    const location = ENCOUNTER_PREFERENCES.setting;
     let i = 0;
     let enemyList = [];
-    while (i < masterEnemyArray.length) {
-        let currentMasterEnemyArrayEntry = masterEnemyArray[i];
+    while (i < MASTER_ENEMY_ARRAY.length) {
+        let currentMasterEnemyArrayEntry = MASTER_ENEMY_ARRAY[i];
         if (currentMasterEnemyArrayEntry.cr <= maxEnemyCR && currentMasterEnemyArrayEntry.potentialLocations.includes(location) == true && (currentMasterEnemyArrayEntry.enemyType == enemyType || enemyType == "all") && (enemyName == undefined || currentMasterEnemyArrayEntry.name == enemyName)) {
-            enemyList.push(masterEnemyArray[i]);
+            enemyList.push(MASTER_ENEMY_ARRAY[i]);
             i++;
         } else {
             i++;
@@ -296,26 +289,40 @@ function generateEncounter() {
     const encounterPick = (Math.floor((Math.random()*10)));
     const encounterPickLocation = encounterPick.location; 
     const encounterPickCombat = encounterPick.combat;
-    if (!encounterPickLocation.includes(encounterPreferences.setting)) {
+    if (!encounterPickLocation.includes(ENCOUNTER_PREFERENCES.setting)) {
         loopNumber++;
         return randomEncounter();
     }
-    if (!encounterPickCombat == encounterPreferences.combat) {
+    if (!encounterPickCombat == ENCOUNTER_PREFERENCES.combat) {
         loopNumber++;
         return randomEncounter();
     }
-    encounterTitleDisplay.innerHTML = encounterPick.title;
-    encounterDescriptionDisplay.innerHTML = encounterPick.description;
-    encounterPick.reward ? encounterRewardDisplay.innerHTML = encounterPick.reward : encounterRewardDisplay.innerHTML = "Oops! Lazy DM/Coder didn't finish his work.";
-    encounterPick.dmNotes ? encounterDMNotesDisplay.innerHTML = encounterPick.dmNotes : encounterDMNotesDisplay.innerHTML = "Sorry, the DM/Coder fucked up.";
+    ENCOUNTER_TITLE_DISPLAY.innerHTML = encounterPick.title;
+    ENCOUNTER_DESC_DISPLAY.innerHTML = encounterPick.description;
+    encounterPick.reward ? ENCOUNTER_REWARD_DISPLAY.innerHTML = encounterPick.reward : ENCOUNTER_REWARD_DISPLAY.innerHTML = "Oops! Lazy DM/Coder didn't finish his work.";
+    encounterPick.dmNotes ? ENCOUNTER_DM_NOTES_DISPLAY.innerHTML = encounterPick.dmNotes : ENCOUNTER_DM_NOTES_DISPLAY.innerHTML = "Sorry, the DM/Coder fucked up.";
     console.log("This has looped " + loopNumber + " times.")
     loopNumber = 1;
     return;
 }
 */
-function createRandomEncounter() {
-    encounterPreferences.update();
-    return console.log(encounterPreferences);
+
+function populateNonCombatEncounters() {
+    const SETTING = ENCOUNTER_PREFERENCES.setting;
+    potentialEncounters = [];
+    let i = 0;
+    while (i<MASTER_ENCOUNTER_ARRAY.length) {
+        if (MASTER_ENCOUNTER_ARRAY[i].location.includes(SETTING)) potentialEncounters.push(MASTER_ENCOUNTER_ARRAY[i]);
+        i++;
+    }
+    return;
 }
 
-generateEncounterButton.addEventListener("click", createRandomEncounter, false);
+function createRandomEncounter() {
+    ENCOUNTER_PREFERENCES.update();
+    if (ENCOUNTER_PREFERENCES.combat == false) populateNonCombatEncounters();
+    if (ENCOUNTER_PREFERENCES.combat == true) populateCombatEncounters();
+    selectRandomArrayEntry(potentialEncounters);
+}
+
+GENERATE_ENCOUNTER_BUTTON.addEventListener("click", createRandomEncounter, false);
