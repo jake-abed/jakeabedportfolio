@@ -146,7 +146,7 @@ const MASTER_ENCOUNTER_ARRAY = [
     }
 ];
 
-/*MASTER_COMBAT_ENCOUNTER object template : 
+/*MASTER_COMBAT_ENCOUNTER_ARRAY object template : 
     {
         title:
         locations:
@@ -160,7 +160,7 @@ const MASTER_ENCOUNTER_ARRAY = [
 
 */
 
-const MASTER_COMBAT_ENCOUNTER = [
+const MASTER_COMBAT_ENCOUNTER_ARRAY = [
     {
         title: "A lone monster lunges from the shadow and attacks your party!",
         locations: ["random", "city", "outdoors", "dungeon", "cloudsea"],
@@ -313,6 +313,18 @@ function populateNonCombatEncounters() {
     let i = 0;
     while (i<MASTER_ENCOUNTER_ARRAY.length) {
         if (MASTER_ENCOUNTER_ARRAY[i].location.includes(SETTING)) potentialEncounters.push(MASTER_ENCOUNTER_ARRAY[i]);
+        i++;
+    }
+    return;
+}
+
+function populateCombatEncounters() {
+    const SETTING = ENCOUNTER_PREFERENCES.setting;
+    const CR = ENCOUNTER_PREFERENCES.calculatedCR();
+    potentialEncounters = [];
+    let i = 0;
+    while (i<MASTER_COMBAT_ENCOUNTER_ARRAY.length) {
+        if (MASTER_COMBAT_ENCOUNTER_ARRAY[i].locations.includes(SETTING) && ((MASTER_COMBAT_ENCOUNTER_ARRAY[i].minCR >= CR-4) || MASTER_COMBAT_ENCOUNTER_ARRAY[i].minCR <= CR+8)) potentialEncounters.push(MASTER_COMBAT_ENCOUNTER_ARRAY[i]);
         i++;
     }
     return;
