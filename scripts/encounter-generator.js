@@ -165,6 +165,7 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         title: "A lone monster lunges from the shadow and attacks your party!",
         locations: ["random", "city", "outdoors", "dungeon", "cloudsea"],
         minCR: 4,
+        maxCR: 120,
         description: "Your party is just minding it's business doing their thing, where a single monster lunges out of nowhere. It targets a random player and starts with advantage.",
         enemyType: "monster",
         singleEnemy: true,
@@ -175,6 +176,7 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         title: "A whizzing sound grows...",
         locations: ["cloudsea"],
         minCR: 4,
+        maxCR: 56,
         description: "A harsh whizzing sound begins growing as a rabid animal plummets from the sky like a comet.",
         enemyType: "animal",
         singleEnemy: true,
@@ -185,6 +187,7 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         title: "A group of random undead enemies attack!",
         locations: ["random", "outdoors", "dungeon", "cloudsea"],
         minCR: 4,
+        maxCR: 800,
         description: "What is this, Final Fantasy? It's just a ton of undead creatures attacking.",
         enemyType: "undead",
         singleEnemy: false,
@@ -194,7 +197,8 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
     {
         title: "An assassin lunges out of the dark and attacks!",
         locations: ["random", "city", "outdoors", "dungeon"],
-        minCR: 4,
+        minCR: 64,
+        maxCR: 80,
         description: "If the assassin is undetected, he gets advantage on the player he attacks. The assassin is human, swathed in blue-black cloth and leather, and utterly silent. If subdued before dying, he will reveal his goal.",
         enemyType: "npc",
         singleEnemy: false,
@@ -324,7 +328,9 @@ function populateCombatEncounters() {
     potentialEncounters = [];
     let i = 0;
     while (i<MASTER_COMBAT_ENCOUNTER_ARRAY.length) {
-        if (MASTER_COMBAT_ENCOUNTER_ARRAY[i].locations.includes(SETTING) && ((MASTER_COMBAT_ENCOUNTER_ARRAY[i].minCR >= CR-4) || MASTER_COMBAT_ENCOUNTER_ARRAY[i].minCR <= CR+8)) potentialEncounters.push(MASTER_COMBAT_ENCOUNTER_ARRAY[i]);
+        if (MASTER_COMBAT_ENCOUNTER_ARRAY[i].locations.includes(SETTING) && (MASTER_COMBAT_ENCOUNTER_ARRAY[i].minCR <= CR+2) && (CR <= MASTER_COMBAT_ENCOUNTER_ARRAY[i].maxCR)) {
+            potentialEncounters.push(MASTER_COMBAT_ENCOUNTER_ARRAY[i]);
+        }
         i++;
     }
     return;
@@ -334,7 +340,7 @@ function createRandomEncounter() {
     ENCOUNTER_PREFERENCES.update();
     if (ENCOUNTER_PREFERENCES.combat == false) populateNonCombatEncounters();
     if (ENCOUNTER_PREFERENCES.combat == true) populateCombatEncounters();
-    selectRandomArrayEntry(potentialEncounters);
+    return console.log(selectRandomArrayEntry(potentialEncounters));
 }
 
 GENERATE_ENCOUNTER_BUTTON.addEventListener("click", createRandomEncounter, false);
