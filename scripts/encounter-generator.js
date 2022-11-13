@@ -50,7 +50,7 @@ const CURRENT_ENCOUNTER = {
         return selectRandomArrayEntry(this.rewardTable);
     },
     potentialEnemies: function () {
-        if (this.requiredEnemy) {
+        if (!this.requiredEnemy) {
             return this.possibleEnemyList = createPossibleEnemyList(this.enemyType);
         } return this.possibleEnemyList = createPossibleEnemyList(this.enemyType, this.requiredEnemy);
     }
