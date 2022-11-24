@@ -40,12 +40,20 @@ const CURRENT_ENCOUNTER = {
     requiredEnemy: null,
     enemyType: null,
     singleEnemy: null,
+    requiredEnemy:null,
+    minCR: null,
+    maxCR: null,
     rewardTable: null,
     dmNotes: null,
+    enemies: null,
     reward: function () {
         return selectRandomArrayEntry(this.rewardTable);
     },
-    enemies: null,
+    potentialEnemies: function () {
+        if (!this.requiredEnemy) {
+            return this.possibleEnemyList = createPossibleEnemyList(this.enemyType);
+        } return this.possibleEnemyList = createPossibleEnemyList(this.enemyType, this.requiredEnemy);
+    }
 }
 
 let loopBreakpoint = 200; //If this reaches zero, the random generation was too inefficient and errors out.
@@ -172,7 +180,7 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         description: "Your party is just minding it's business doing their thing, where a single monster lunges out of nowhere. It targets a random player and starts with advantage.",
         enemyType: "monster",
         singleEnemy: true,
-        rewardTable: undefined,
+        rewardTable: ["3gp per CR", "A ring of resistance (DM's choice)", "Ring of Jumping", "An Amulet of a Random God", "A +1 Bastard Sword"],
         dmNotes: "Feel free to sub out the monster for something more thematically appropriate."
     },
     {
@@ -183,7 +191,7 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         description: "A harsh whizzing sound begins growing as a rabid animal plummets from the sky like a comet.",
         enemyType: "animal",
         singleEnemy: true,
-        rewardTable: undefined,
+        rewardTable: ["The animal's meat", "The animal has a tag attached to it that reads 'University of Aarakocra Tagging Project'", "Partially eaten glizzy"],
         dmNotes: "If the enemy generated cannot fly, sub in something different."
     },
     {
@@ -194,7 +202,7 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         description: "What is this, Final Fantasy? It's just a ton of undead creatures attacking.",
         enemyType: "undead",
         singleEnemy: false,
-        rewardTable: undefined,
+        rewardTable: ["1gp per CR", "Underwear", "A signet ring with the initials D.R.P.", "1 ration per CR"],
         dmNotes: "This is a generic combat encounter for generic times."
     },
     {
@@ -204,8 +212,9 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         maxCR: 80,
         description: "If the assassin is undetected, he gets advantage on the player he attacks. The assassin is human, swathed in blue-black cloth and leather, and utterly silent. If subdued before dying, he will reveal his goal.",
         enemyType: "npc",
-        singleEnemy: false,
-        rewardTable: undefined,
+        requiredEnemy: "Assassin",
+        singleEnemy: true,
+        rewardTable: ["A bag containing 3 diamonds, 5 rubies, and 3 emeralds.", "100gp and a letter with the party's names on it addressed from Kestron Yarona.", "A Ring of Invisibility"],
         dmNotes: "Make the assassin's goal work into a plot beat. Also, have each party member roll a perception check at the begining of the encounter. A 20 will reveal the assassin, preventing advantage."
     },
 ];
@@ -291,29 +300,6 @@ function createPossibleEnemyList(enemyType = "all", enemyName = undefined) {
     return enemyList;
 }
 
-/*
-function generateEncounter() {
-    const encounterPick = (Math.floor((Math.random()*10)));
-    const encounterPickLocation = encounterPick.location; 
-    const encounterPickCombat = encounterPick.combat;
-    if (!encounterPickLocation.includes(ENCOUNTER_PREFERENCES.setting)) {
-        loopNumber++;
-        return randomEncounter();
-    }
-    if (!encounterPickCombat == ENCOUNTER_PREFERENCES.combat) {
-        loopNumber++;
-        return randomEncounter();
-    }
-    ENCOUNTER_TITLE_DISPLAY.innerHTML = encounterPick.title;
-    ENCOUNTER_DESC_DISPLAY.innerHTML = encounterPick.description;
-    encounterPick.reward ? ENCOUNTER_REWARD_DISPLAY.innerHTML = encounterPick.reward : ENCOUNTER_REWARD_DISPLAY.innerHTML = "Oops! Lazy DM/Coder didn't finish his work.";
-    encounterPick.dmNotes ? ENCOUNTER_DM_NOTES_DISPLAY.innerHTML = encounterPick.dmNotes : ENCOUNTER_DM_NOTES_DISPLAY.innerHTML = "Sorry, the DM/Coder fucked up.";
-    console.log("This has looped " + loopNumber + " times.")
-    loopNumber = 1;
-    return;
-}
-*/
-
 function populateNonCombatEncounters() {
     const SETTING = ENCOUNTER_PREFERENCES.setting;
     potentialEncounters = [];
@@ -339,35 +325,17 @@ function populateCombatEncounters() {
     return;
 }
 
-function fillCurrentEncounterObj(encounterObject) {
-    CURRENT_ENCOUNTER.title = encounterObject.title ?? "No Title";
-    CURRENT_ENCOUNTER.description = encounterObject.description ?? "No Description";
-    CURRENT_ENCOUNTER.dmNotes = encounterObject.dmNotes ?? "No DM Notes"
-    CURRENT_ENCOUNTER.rewardTable = encounterObject.rewardTable ?? "NA";
-    CURRENT_ENCOUNTER.enemies = encounterObject.enemies ?? undefined;
-    CURRENT_ENCOUNTER.enemyType = encounterObject.enemyType ?? undefined;
-    CURRENT_ENCOUNTER.requiredEnemy = encounterObject.requiredEnemy ?? undefined;
-    CURRENT_ENCOUNTER.singleEnemy = encounterObject.singleEnemy ?? false;
-    return CURRENT_ENCOUNTER;
-}
-
-function updateEncounterContainer() {
-    ENCOUNTER_TITLE_DISPLAY.innerHTML = CURRENT_ENCOUNTER.title;
-    ENCOUNTER_DESC_DISPLAY.innerHTML = CURRENT_ENCOUNTER.description;
-    ENCOUNTER_REWARD_DISPLAY.innerHTML = CURRENT_ENCOUNTER.reward();
-    ENCOUNTER_DM_NOTES_DISPLAY.innerHTML = CURRENT_ENCOUNTER.dmNotes;
-    if (!CURRENT_ENCOUNTER.enemyType) return;
-    console.log("It's a combat encounter");
-    return;
+function fillMonsters() {
+    const MAX_CR = ENCOUNTER_PREFERENCES.calculatedCR();
+    let remainingCR = MAX_CR;
 }
 
 function createRandomEncounter() {
+    console.time();
     ENCOUNTER_PREFERENCES.update();
     if (ENCOUNTER_PREFERENCES.combat == false) populateNonCombatEncounters();
     if (ENCOUNTER_PREFERENCES.combat == true) populateCombatEncounters();
-    fillCurrentEncounterObj(selectRandomArrayEntry(potentialEncounters));
-    updateEncounterContainer();
-    return;
+    return console.log(selectRandomArrayEntry(potentialEncounters));
 }
 
 GENERATE_ENCOUNTER_BUTTON.addEventListener("click", createRandomEncounter, false);
