@@ -119,7 +119,7 @@ const MASTER_ENCOUNTER_ARRAY = [
         combat: false,
         title: "A man is trapped under debris...",
         description: "A muscular, but extremely wounded man is trapped underneath debris. If outdoors, it's a tree or some stones. In a dungeon, it could be a trap or stone or a collapsed wall. Either way, a DC 20 strength check (lowered by 5 for each participating player) will free him. Or if the player's spend 2d4 hours, they can free him. Once freed, he will reward the players and start running away. He'll be muttering, 'Verlacht is gonna kill me...' while leaving. If the player's don't save him, he'll scream incessantly until out of earshot.",
-        rewardTable: ["TBD, maybe 50 gold."],
+        rewardTable: ["50 gold.", "A golden signet ring with the initials 'VZ'"],
         dmNotes: "Use the Verlacht bit or not. Who is he? A merchant? Bandit leader? General?",
     },
 
@@ -172,7 +172,7 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         description: "Your party is just minding it's business doing their thing, where a single monster lunges out of nowhere. It targets a random player and starts with advantage.",
         enemyType: "monster",
         singleEnemy: true,
-        rewardTable: undefined,
+        rewardTable: ["10gp per Desired CP", "1 Ration per player", "A love letter addressed to 'Little Geoffers' in Indran City'"],
         dmNotes: "Feel free to sub out the monster for something more thematically appropriate."
     },
     {
@@ -183,7 +183,7 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         description: "A harsh whizzing sound begins growing as a rabid animal plummets from the sky like a comet.",
         enemyType: "animal",
         singleEnemy: true,
-        rewardTable: undefined,
+        rewardTable: ["Just the corpse of the animal", "1 large pearl per Desired CR", "1 Health Potion"],
         dmNotes: "If the enemy generated cannot fly, sub in something different."
     },
     {
@@ -194,7 +194,7 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         description: "What is this, Final Fantasy? It's just a ton of undead creatures attacking.",
         enemyType: "undead",
         singleEnemy: false,
-        rewardTable: undefined,
+        rewardTable: ["5 gp per enemy", "A piece of silver cutlery per enemy", "A Ring of Resistance (Necrotic)", "A Ring of Resistance (Fire)"],
         dmNotes: "This is a generic combat encounter for generic times."
     },
     {
@@ -204,8 +204,9 @@ const MASTER_COMBAT_ENCOUNTER_ARRAY = [
         maxCR: 80,
         description: "If the assassin is undetected, he gets advantage on the player he attacks. The assassin is human, swathed in blue-black cloth and leather, and utterly silent. If subdued before dying, he will reveal his goal.",
         enemyType: "npc",
-        singleEnemy: false,
-        rewardTable: undefined,
+        singleEnemy: true,
+        requiredEnemy: "Assassin",
+        rewardTable: ["A +1 Dagger", "A bag containing 1 diamond, 2 rubies, and one emerald", "200 Gold", "The deed to a shack outside of Tiupran"],
         dmNotes: "Make the assassin's goal work into a plot beat. Also, have each party member roll a perception check at the begining of the encounter. A 20 will reveal the assassin, preventing advantage."
     },
 ];
