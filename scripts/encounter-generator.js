@@ -27,9 +27,6 @@ const ENCOUNTER_PREFERENCES = { //Set to default values
         this.desiredCR = Number(DESIRED_CR.value);
         this.numOfPlayers = Number(NUM_OF_PLAYERS.value);
         this.maxEnemyCR = this.desiredCR * 8;
-        if (this.combat == true) {
-            this.possibleEnemyList = createPossibleEnemyList(this.maxEnemyCR, this.setting, "all");
-        }
         return this;
     },
 }
@@ -46,9 +43,40 @@ const CURRENT_ENCOUNTER = {
         return selectRandomArrayEntry(this.rewardTable);
     },
     enemies: null,
+    populateEnemyList: function () {
+        if (this.enemyType === undefined) {
+            this.potentialEnemyList = createPossibleEnemyList("all", this.requiredEnemy);
+        } else {
+            this.potentialEnemyList = createPossibleEnemyList(this.enemyType, this.requiredEnemy);
+        }
+        return;
+    },
+    chooseEnemies: function () {
+        const minCR = ENCOUNTER_PREFERENCES.calculatedCR() - 16;
+        let remainingCR = ENCOUNTER_PREFERENCES.calculatedCR();
+        if (!this.potentialEnemyList) return console.log("Could not populate enemies.");
+        if (this.potentialEnemyList.length === 1) return this.enemies = this.potentialEnemyList;
+        if (this.singleEnemy === true) {
+            let trimmedEnemyList = [];
+            for (let i = 0; i < this.potentialEnemyList.length; i++) {
+                if (this.potentialEnemyList[i].cr >= minCR)
+                trimmedEnemyList.push(this.potentialEnemyList[i]);
+            }
+            trimmedEnemyList.length != 0 ? this.enemies = [selectRandomArrayEntry(trimmedEnemyList)] : this.enemies = [selectRandomArrayEntry(this.potentialEnemyList)];
+        } else {
+            let finalEnemyList = [];
+            while (remainingCR > 0) {
+                let enemyRoll = selectRandomArrayEntry(this.potentialEnemyList);
+                if (enemyRoll.cr <= remainingCR) {
+                    finalEnemyList.push(enemyRoll);
+                    remainingCR -= enemyRoll.cr;
+                }
+            }
+            this.enemies = finalEnemyList;
+        }
+        return this.enemies;
+    }
 }
-
-let loopBreakpoint = 200; //If this reaches zero, the random generation was too inefficient and errors out.
 
 const MASTER_ENCOUNTER_ARRAY = [
     {
@@ -349,6 +377,8 @@ function fillCurrentEncounterObj(encounterObject) {
     CURRENT_ENCOUNTER.enemyType = encounterObject.enemyType ?? undefined;
     CURRENT_ENCOUNTER.requiredEnemy = encounterObject.requiredEnemy ?? undefined;
     CURRENT_ENCOUNTER.singleEnemy = encounterObject.singleEnemy ?? false;
+    CURRENT_ENCOUNTER.populateEnemyList();
+    CURRENT_ENCOUNTER.chooseEnemies();
     return CURRENT_ENCOUNTER;
 }
 
@@ -357,8 +387,7 @@ function updateEncounterContainer() {
     ENCOUNTER_DESC_DISPLAY.innerHTML = CURRENT_ENCOUNTER.description;
     ENCOUNTER_REWARD_DISPLAY.innerHTML = CURRENT_ENCOUNTER.reward();
     ENCOUNTER_DM_NOTES_DISPLAY.innerHTML = CURRENT_ENCOUNTER.dmNotes;
-    if (!CURRENT_ENCOUNTER.enemyType) return;
-    console.log("It's a combat encounter");
+    if (!ENCOUNTER_PREFERENCES.combat) return;
     return;
 }
 
