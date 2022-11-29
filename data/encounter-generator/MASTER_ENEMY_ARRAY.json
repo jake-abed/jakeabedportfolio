@@ -48,5 +48,13 @@
     {"name":"Young Copper Dragon","potentialLocations":["random","city","outdoors","cloudsea"],"enemyType":"dragon","cr":56,"xpVal":2900},
     {"name":"Young Red Dragon","potentialLocations":["random","city","outdoors","cloudsea","dungeon"],"enemyType":"dragon","cr":80,"xpVal":5900},
     {"name":"Young Blue Dragon","potentialLocations":["random","city","outdoors","cloudsea","dungeon"],"enemyType":"dragon","cr":72,"xpVal":5000},
-    {"name":"Adult Black Dragon","potentialLocations":["random","city","outdoors","cloudsea","dungeon"],"enemyType":"dragon","cr":112,"xpVal":11500}
+    {"name":"Adult Black Dragon","potentialLocations":["random","city","outdoors","cloudsea","dungeon"],"enemyType":"dragon","cr":112,"xpVal":11500},
+    {"name":"Beholder","potentialLocations":["random","dungeon","cloudsea"],"enemyType":"monster","cr":104,"xpVal":10000},
+    {"name":"Blue Slaad","potentialLocations":["random","dungeon","outdoors"],"enemyType":"monster","cr":56,"xpVal":2900},
+    {"name":"Red Slaad","potentialLocations":["random","dungeon","outdoors"],"enemyType":"monster","cr":40,"xpVal":1800},
+    {"name":"Green Slaad","potentialLocations":["random","dungeon","outdoors"],"enemyType":"monster","cr":64,"xpVal":3900},
+    {"name":"Death Slaad","potentialLocations":["random","dungeon","outdoors"],"enemyType":"monster","cr":80,"xpVal":5900},
+    {"name":"Anklyosaurus","potentialLocations":["random","outdoors"],"enemyType":"monster","cr":24,"xpVal":700},
+    {"name":"Lamia","potentialLocations":["random","dungeon","outdoors"],"enemyType":"monster","cr":32,"xpVal":1100},
+    {"name":"Mind Flayer","potentialLocations":["random","dungeon"],"enemyType":"monster","cr":56,"xpVal":2900}
 ]

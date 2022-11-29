@@ -95,7 +95,7 @@ function createPossibleEnemyList(enemyType = "all", enemyName = undefined) {
     let enemyList = [];
     while (i < MASTER_ENEMY_ARRAY.length) {
         let currentMasterEnemyArrayEntry = MASTER_ENEMY_ARRAY[i];
-        if (currentMasterEnemyArrayEntry.cr <= maxEnemyCR && currentMasterEnemyArrayEntry.potentialLocations.includes(location) == true && (currentMasterEnemyArrayEntry.enemyType == enemyType || enemyType == "all") && (enemyName == undefined || currentMasterEnemyArrayEntry.name == enemyName)) {
+        if (currentMasterEnemyArrayEntry.cr <= maxEnemyCR && currentMasterEnemyArrayEntry.cr >= maxEnemyCR/16 && currentMasterEnemyArrayEntry.potentialLocations.includes(location) == true && (currentMasterEnemyArrayEntry.enemyType == enemyType || enemyType == "all") && (enemyName == undefined || currentMasterEnemyArrayEntry.name == enemyName)) {
             enemyList.push(MASTER_ENEMY_ARRAY[i]);
             i++;
         } else {
