@@ -149,8 +149,11 @@ function updateEncounterContainer() {
     ENCOUNTER_DESC_DISPLAY.innerHTML = CURRENT_ENCOUNTER.description;
     ENCOUNTER_REWARD_DISPLAY.innerHTML = CURRENT_ENCOUNTER.reward();
     ENCOUNTER_DM_NOTES_DISPLAY.innerHTML = CURRENT_ENCOUNTER.dmNotes;
+    ENCOUNTER_ENEMIES_DISPLAY.innerHTML = "";
     if (!ENCOUNTER_PREFERENCES.combat) return;
-    console.log(CURRENT_ENCOUNTER.enemies);
+    CURRENT_ENCOUNTER.enemies.forEach(enemy => {
+        ENCOUNTER_ENEMIES_DISPLAY.innerHTML += "<p>" + enemy.name + " - " + "XP: " + enemy.xpVal + "</p>";
+    });
     return;
 }
 
