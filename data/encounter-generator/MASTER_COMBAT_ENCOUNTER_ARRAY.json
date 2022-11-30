@@ -1,0 +1,69 @@
+[
+    {
+        "title":"A lone monster lunges from the shadow and attacks your party!",
+        "locations":["random","city","outdoors","dungeon","cloudsea"],
+        "minCR":4,
+        "maxCR":120,
+        "description":"Your party is just minding it's business doing their thing, where a single monster lunges out of nowhere. It targets a random player and starts with advantage.",
+        "enemyType":"monster",
+        "singleEnemy":true,
+        "rewardTable":["10gp per Desired CP","1 Ration per player","A love letter addressed to 'Little Geoffers' in Indran City'"],
+        "dmNotes":"Feel free to sub out the monster for something more thematically appropriate."
+    },
+    {
+        "title":"A whizzing sound grows...",
+        "locations":["cloudsea"],
+        "minCR":4,
+        "maxCR":56,
+        "description":"A harsh whizzing sound begins growing as a rabid animal plummets from the sky like a comet.",
+        "enemyType":"animal",
+        "singleEnemy":true,
+        "rewardTable":["Just the corpse of the animal","1 large pearl per Desired CR","1 Health Potion"],
+        "dmNotes":"If the enemy generated cannot fly, sub in something different."
+    },
+    {
+        "title":"A group of random undead enemies attack!",
+        "locations":["random","outdoors","dungeon","cloudsea"],
+        "minCR":4,
+        "maxCR":960,
+        "description":"What is this, Final Fantasy? It's just a ton of undead creatures attacking.",
+        "enemyType":"undead",
+        "singleEnemy":false,
+        "rewardTable":["5 gp per enemy","A piece of silver cutlery per enemy","A Ring of Resistance (Necrotic)","A Ring of Resistance (Fire)"],
+        "dmNotes":"This is a generic combat encounter for generic times."
+    },
+    {
+        "title":"An assassin lunges out of the dark and attacks!",
+        "locations":["random","city","outdoors","dungeon"],
+        "minCR":64,
+        "maxCR":80,
+        "description":"If the assassin is undetected, he gets advantage on the player he attacks. The assassin is human, swathed in blue-black cloth and leather, and utterly silent. If subdued before dying, he will reveal his goal.",
+        "enemyType":"npc",
+        "singleEnemy":true,
+        "requiredEnemy":"Assassin",
+        "rewardTable":["A +1 Dagger","A bag containing 1 diamond, 2 rubies, and one emerald","200 Gold","The deed to a shack outside of Tiupran"],
+        "dmNotes":"Make the assassin's goal work into a plot beat. Also, have each party member roll a perception check at the begining of the encounter. A 20 will reveal the assassin, preventing advantage."
+    },
+    {
+        "title":"A small dog sprints past with a monster chasing it.",
+        "locations":["random","outdoors"],
+        "minCR":1,
+        "maxCR":96,
+        "description":"A small terrier sprints dashes out of nowhere. It is being chased by a lone monster.",
+        "enemyType":"monster",
+        "singleEnemy":true,
+        "rewardTable":["1 standard health potion per player.", "Three gold teeth, valued at 2 gp each.", "An emerald."],
+        "dmNotes":"This should just be a fun basic encounter. The party should definitely be allowed to hang out with the dog after the encounter. Laziness or bad combat = dead dog."
+    },
+    {
+        "title":"A group of random monsters attacks!",
+        "locations":["random", "city", "cloudsea", "dungeon", "outdoors"],
+        "minCR":1,
+        "maxCR":960,
+        "description":"Again, what is this? Final fantasy. Feel free to sub-out or add monsters as needed.",
+        "enemyType":"monster",
+        "singleEnemy":false,
+        "rewardTable":["1 standard health potion per player.", "Three gold teeth, valued at 2 gp each.", "An emerald."],
+        "dmNotes":"This should just be a fun basic encounter. The party should definitely be allowed to hang out with the dog after the encounter. Laziness or bad combat = dead dog."
+    }
+]

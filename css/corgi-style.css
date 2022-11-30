@@ -246,3 +246,7 @@ input {
     max-width: 500px;
     padding: .25em 1.25em;
 }
+
+#encounter-enemies {
+    width: 100%;
+}
