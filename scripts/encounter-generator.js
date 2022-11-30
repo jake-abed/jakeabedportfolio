@@ -154,6 +154,7 @@ function updateEncounterContainer() {
     CURRENT_ENCOUNTER.enemies.forEach(enemy => {
         ENCOUNTER_ENEMIES_DISPLAY.innerHTML += "<p>" + enemy.name + " - " + "XP: " + enemy.xpVal + "</p>";
     });
+    console.log("Please Help");
     return;
 }
 
