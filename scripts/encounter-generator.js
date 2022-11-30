@@ -152,7 +152,9 @@ function updateEncounterContainer() {
     ENCOUNTER_ENEMIES_DISPLAY.innerHTML = "";
     if (!ENCOUNTER_PREFERENCES.combat) return;
     CURRENT_ENCOUNTER.enemies.forEach(enemy => {
-        ENCOUNTER_ENEMIES_DISPLAY.innerHTML += "<p>" + enemy.name + " - " + "XP: " + enemy.xpVal + "</p>";
+        const PARAGRAPH = document.createElement("p");
+        PARAGRAPH.innerHTML = "<p>" + enemy.name + " - " + "XP: " + enemy.xpVal + "</p>";
+        ENCOUNTER_ENEMIES_DISPLAY.insertAdjacentElement("beforeend", PARAGRAPH);
     });
     console.log("Please Help");
     return;
