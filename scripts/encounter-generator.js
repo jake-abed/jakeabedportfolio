@@ -1,8 +1,26 @@
 "use strict";
 
+/*
 import MASTER_ENEMY_ARRAY from "../data/encounter-generator/MASTER_ENEMY_ARRAY.json" assert {type: "json"};
 import MASTER_ENCOUNTER_ARRAY from "../data/encounter-generator/MASTER_ENCOUNTER_ARRAY.json" assert {type: "json"};
 import MASTER_COMBAT_ENCOUNTER_ARRAY from "../data/encounter-generator/MASTER_COMBAT_ENCOUNTER_ARRAY.json" assert {type: "json"};
+*/
+
+let masterEnemyArray, masterEncounterArray, masterCombatEncounterArray
+
+const MASTER_ENEMY_ARRAY_PROMISE = fetch("../data/encounter-generator/MASTER_ENEMY_ARRAY.json")
+    .then((response) => response.json())
+    .then((json) => {return masterEnemyArray = json});
+
+const MASTER_ENCOUNTER_ARRAY = fetch("../data/encounter-generator/MASTER_ENCOUNTER_ARRAY.json")
+    .then((response) => response.json())
+    .then((json) => {return masterEncounterArray = json});
+
+const MASTER_COMBAT_ENCOUNTER_ARRAY = fetch("../data/encounter-generator/MASTER_COMBAT_ENCOUNTER_ARRAY.json")
+    .then((response) => response.json())
+    .then((json) => {return masterCombatEncounterArray = json});
+
+
 
 const GENERATE_ENCOUNTER_BUTTON = document.getElementById("annoying-button"),
       ENCOUNTER_SETTING = document.getElementById("encounter-setting"),
@@ -93,10 +111,10 @@ function createPossibleEnemyList(enemyType = "all", enemyName = undefined) {
     const location = ENCOUNTER_PREFERENCES.setting;
     let i = 0;
     let enemyList = [];
-    while (i < MASTER_ENEMY_ARRAY.length) {
-        let currentMasterEnemyArrayEntry = MASTER_ENEMY_ARRAY[i];
+    while (i < masterEnemyArray.length) {
+        let currentMasterEnemyArrayEntry = masterEnemyArray[i];
         if (currentMasterEnemyArrayEntry.cr <= maxEnemyCR && currentMasterEnemyArrayEntry.cr >= maxEnemyCR/16 && currentMasterEnemyArrayEntry.potentialLocations.includes(location) == true && (currentMasterEnemyArrayEntry.enemyType == enemyType || enemyType == "all") && (enemyName == undefined || currentMasterEnemyArrayEntry.name == enemyName)) {
-            enemyList.push(MASTER_ENEMY_ARRAY[i]);
+            enemyList.push(masterEnemyArray[i]);
             i++;
         } else {
             i++;
@@ -109,8 +127,8 @@ function populateNonCombatEncounters() {
     const SETTING = ENCOUNTER_PREFERENCES.setting;
     potentialEncounters = [];
     let i = 0;
-    while (i<MASTER_ENCOUNTER_ARRAY.length) {
-        if (MASTER_ENCOUNTER_ARRAY[i].location.includes(SETTING)) potentialEncounters.push(MASTER_ENCOUNTER_ARRAY[i]);
+    while (i<masterEncounterArray.length) {
+        if (masterEncounterArray[i].location.includes(SETTING)) potentialEncounters.push(masterEncounterArray[i]);
         i++;
     }
     return;
@@ -121,9 +139,9 @@ function populateCombatEncounters() {
     const CR = ENCOUNTER_PREFERENCES.calculatedCR();
     potentialEncounters = [];
     let i = 0;
-    while (i<MASTER_COMBAT_ENCOUNTER_ARRAY.length) {
-        if (MASTER_COMBAT_ENCOUNTER_ARRAY[i].locations.includes(SETTING) && (MASTER_COMBAT_ENCOUNTER_ARRAY[i].minCR <= CR+2) && (CR <= MASTER_COMBAT_ENCOUNTER_ARRAY[i].maxCR)) {
-            potentialEncounters.push(MASTER_COMBAT_ENCOUNTER_ARRAY[i]);
+    while (i<masterCombatEncounterArray.length) {
+        if (masterCombatEncounterArray[i].locations.includes(SETTING) && (masterCombatEncounterArray[i].minCR <= CR+2) && (CR <= masterCombatEncounterArray[i].maxCR)) {
+            potentialEncounters.push(masterCombatEncounterArray[i]);
         }
         i++;
     }
