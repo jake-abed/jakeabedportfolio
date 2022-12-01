@@ -8,15 +8,15 @@ import MASTER_COMBAT_ENCOUNTER_ARRAY from "../data/encounter-generator/MASTER_CO
 
 let masterEnemyArray, masterEncounterArray, masterCombatEncounterArray
 
-const MASTER_ENEMY_ARRAY_PROMISE = fetch("./data/encounter-generator/MASTER_ENEMY_ARRAY.html")
+const MASTER_ENEMY_ARRAY_PROMISE = fetch("./data/encounter-generator/MASTER_ENEMY_ARRAY.json")
     .then((response) => response.json())
     .then((json) => {return masterEnemyArray = json});
 
-const MASTER_ENCOUNTER_ARRAY = fetch("./data/encounter-generator/MASTER_ENCOUNTER_ARRAY.html")
+const MASTER_ENCOUNTER_ARRAY = fetch("./data/encounter-generator/MASTER_ENCOUNTER_ARRAY.json")
     .then((response) => response.json())
     .then((json) => {return masterEncounterArray = json});
 
-const MASTER_COMBAT_ENCOUNTER_ARRAY = fetch("./data/encounter-generator/MASTER_COMBAT_ENCOUNTER_ARRAY.html")
+const MASTER_COMBAT_ENCOUNTER_ARRAY = fetch("./data/encounter-generator/MASTER_COMBAT_ENCOUNTER_ARRAY.json")
     .then((response) => response.json())
     .then((json) => {return masterCombatEncounterArray = json});
 
