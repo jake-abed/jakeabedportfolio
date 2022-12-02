@@ -1,27 +1,21 @@
 "use strict";
 
-/*
-import MASTER_ENEMY_ARRAY from "../data/encounter-generator/MASTER_ENEMY_ARRAY.json" assert {type: "json"};
-import MASTER_ENCOUNTER_ARRAY from "../data/encounter-generator/MASTER_ENCOUNTER_ARRAY.json" assert {type: "json"};
-import MASTER_COMBAT_ENCOUNTER_ARRAY from "../data/encounter-generator/MASTER_COMBAT_ENCOUNTER_ARRAY.json" assert {type: "json"};
-*/
+let masterEnemyArray, masterEncounterArray, masterCombatEncounterArray //Declare all arrays to store data.
 
-let masterEnemyArray, masterEncounterArray, masterCombatEncounterArray
-
+//The following variables fetch the necesssary JSON files and store  the results in the previous declared variables.
 const MASTER_ENEMY_ARRAY_PROMISE = fetch("./data/encounter-generator/MASTER_ENEMY_ARRAY.json")
     .then((response) => response.json())
     .then((json) => {return masterEnemyArray = json});
 
-const MASTER_ENCOUNTER_ARRAY = fetch("./data/encounter-generator/MASTER_ENCOUNTER_ARRAY.json")
+const MASTER_ENCOUNTER_ARRAY_PROMISE = fetch("./data/encounter-generator/MASTER_ENCOUNTER_ARRAY.json")
     .then((response) => response.json())
     .then((json) => {return masterEncounterArray = json});
 
-const MASTER_COMBAT_ENCOUNTER_ARRAY = fetch("./data/encounter-generator/MASTER_COMBAT_ENCOUNTER_ARRAY.json")
+const MASTER_COMBAT_ENCOUNTER_ARRAY_PROMISE = fetch("./data/encounter-generator/MASTER_COMBAT_ENCOUNTER_ARRAY.json")
     .then((response) => response.json())
     .then((json) => {return masterCombatEncounterArray = json});
 
-
-
+//Establish variables for User Input from DOM & Elements where results will be displayed.
 const GENERATE_ENCOUNTER_BUTTON = document.getElementById("annoying-button"),
       ENCOUNTER_SETTING = document.getElementById("encounter-setting"),
       IS_COMBAT = document.getElementById("is-combat"),
@@ -40,10 +34,10 @@ const ENCOUNTER_PREFERENCES = { //Set to default values
     combat: false,
     desiredCR: 1,
     numOfPlayers: 3,
-    calculatedCR: function () {
+    calculatedCR: function () { //Method to determine desired difficulty
         return this.desiredCR * this.numOfPlayers * 2;
     },
-    update: function () {
+    update: function () { //Method to update Preferences with User Inputs
         this.setting = ENCOUNTER_SETTING.value;
         this.combat = (IS_COMBAT.value === "true");
         this.desiredCR = Number(DESIRED_CR.value);
@@ -53,6 +47,11 @@ const ENCOUNTER_PREFERENCES = { //Set to default values
     },
 }
 
+/*Declare Current Encounter object to store information about the selected encounter.
+Init values will always be overwritten by the fillCurrentEncounterObj function.
+If a null value sneaks through, that function has broken or one of CURRENT_ENCOUNTER's
+method's has broken as well.
+*/
 const CURRENT_ENCOUNTER = {
     title: null,
     description: null,
@@ -62,68 +61,73 @@ const CURRENT_ENCOUNTER = {
     rewardTable: null,
     dmNotes: null,
     reward: function () {
-        return selectRandomArrayEntry(this.rewardTable);
+        return selectRandomArrayEntry(this.rewardTable); //Method grabs a random reward from the rewardTable property.
     },
     enemies: null,
-    populateEnemyList: function () {
+    populateEnemyList: function () { //Method to generate a list of all enemies that could appear in the encounter given current restrictions stored in Preferences and Current Encounter.
         if (this.enemyType === undefined) {
-            this.potentialEnemyList = createPossibleEnemyList("all", this.requiredEnemy);
+            this.potentialEnemyList = createPossibleEnemyList("all", this.requiredEnemy); //If enemy type has not being supplied
         } else {
             this.potentialEnemyList = createPossibleEnemyList(this.enemyType, this.requiredEnemy);
         }
         return;
     },
     chooseEnemies: function () {
-        const minCR = ENCOUNTER_PREFERENCES.calculatedCR() - 16;
+        const minCR = ENCOUNTER_PREFERENCES.calculatedCR() - 16; //Establish a minimum CR for single Enemy Encounters.
         let remainingCR = ENCOUNTER_PREFERENCES.calculatedCR();
-        if (!this.potentialEnemyList) return console.log("Could not populate enemies.");
-        if (this.potentialEnemyList.length === 1) return this.enemies = this.potentialEnemyList;
-        if (this.singleEnemy === true) {
-            let trimmedEnemyList = [];
-            for (let i = 0; i < this.potentialEnemyList.length; i++) {
-                if (this.potentialEnemyList[i].cr >= minCR)
-                trimmedEnemyList.push(this.potentialEnemyList[i]);
+        if (!this.potentialEnemyList) return console.error("Could not populate enemies."); //If there are no potential enemies, return and log an error.
+        if (this.potentialEnemyList.length === 1 && this.singleEnemy === true) return this.enemies = this.potentialEnemyList; //If there is only a single enemy in the potential enemy list and there's only a single enemy required, you're set.
+        if (this.singleEnemy === true) { //In case of single enemy, but multiple entries...
+            let trimmedEnemyList = []; //Declare an array variable to store Enemies that meet the criteria.
+            for (let i = 0; i < this.potentialEnemyList.length; i++) { //Run the loop for each enemy in the potentialEnemyList
+                if (this.potentialEnemyList[i].cr >= minCR) //If the enemy's CR is greater than or equal to minCR...
+                trimmedEnemyList.push(this.potentialEnemyList[i]); //Push it to the end of the trimmedEnemyList!
             }
-            trimmedEnemyList.length != 0 ? this.enemies = [selectRandomArrayEntry(trimmedEnemyList)] : this.enemies = [selectRandomArrayEntry(this.potentialEnemyList)];
+            trimmedEnemyList.length != 0 ? this.enemies = [selectRandomArrayEntry(trimmedEnemyList)] : this.enemies = [selectRandomArrayEntry(this.potentialEnemyList)]; //If trimmedEnemyList is not equal to zero, choose one. If no enemies met the criteria, just choose one from the initial list.
+            //Side note: this could be refactored to be a function that could recur. It could rerun the function with slightly less stringent criteria? Food for thought.
         } else {
-            let finalEnemyList = [];
-            while (remainingCR > 0) {
+            let finalEnemyList = []; //Declare an array variable to store all enemies in.
+            let acceptableDeviance = remainingCR / 32; //Establish an acceptable range of deviance from the
+            let breakpoint = 0; //Establish a breakpoint. If the loop ever pass this many iterations, it ends the loop. Basically a safety valve.
+            while (remainingCR > acceptableDeviance && breakpoint < 50) {
                 let enemyRoll = selectRandomArrayEntry(this.potentialEnemyList);
+                breakpoint++; //Increment breakpoint up -- remember this won't check this until next iteration.
                 if (enemyRoll.cr <= remainingCR) {
-                    finalEnemyList.push(enemyRoll);
-                    remainingCR -= enemyRoll.cr;
+                    finalEnemyList.push(enemyRoll); //Push the enemy to the end of the output list.
+                    remainingCR -= enemyRoll.cr; //And decrement remainingCR
                 }
             }
-            this.enemies = finalEnemyList;
+            if (breakpoint >= 50) alert("Hey! Looks like this combat encounter didn't populate super well. Consider re-rolling it, okay?") //If you had to break out, let the user know. Worth refactoring later.
+            this.enemies = finalEnemyList; //Update the enemies property!
         }
-        return this.enemies;
+        return this.enemies; //Is this necessary? Not unhelpful for testing I suppose.
     }
 }
 
-let potentialEncounters = [];
+let potentialEncounters = []; //Declare an array to store potentialEncounters.
 
-function selectRandomArrayEntry(anArray) {
+function selectRandomArrayEntry(anArray) { //Helper function to grab a random entry from an array.
     return anArray[Math.floor(Math.random()*anArray.length)]
 }
 
-function createPossibleEnemyList(enemyType = "all", enemyName = undefined) {
-    const maxEnemyCR = ENCOUNTER_PREFERENCES.calculatedCR();
+function createPossibleEnemyList(enemyType = "all", enemyName = undefined) { //Helper function to create a array of Enemies.
+    const maxEnemyCR = ENCOUNTER_PREFERENCES.calculatedCR(); //Pull globally scoped object properties and store them in locally scoped constants
     const location = ENCOUNTER_PREFERENCES.setting;
     let i = 0;
     let enemyList = [];
-    while (i < masterEnemyArray.length) {
-        let currentMasterEnemyArrayEntry = masterEnemyArray[i];
-        if (currentMasterEnemyArrayEntry.cr <= maxEnemyCR && currentMasterEnemyArrayEntry.cr >= maxEnemyCR/16 && currentMasterEnemyArrayEntry.potentialLocations.includes(location) == true && (currentMasterEnemyArrayEntry.enemyType == enemyType || enemyType == "all") && (enemyName == undefined || currentMasterEnemyArrayEntry.name == enemyName)) {
-            enemyList.push(masterEnemyArray[i]);
-            i++;
+    while (i < masterEnemyArray.length) { //Go through each enemy in the Master Enemy Array.
+        let currentMasterEnemyArrayEntry = masterEnemyArray[i]; //Verbose?
+        if (currentMasterEnemyArrayEntry.cr <= maxEnemyCR && currentMasterEnemyArrayEntry.cr >= maxEnemyCR/32 && currentMasterEnemyArrayEntry.potentialLocations.includes(location) == true && (currentMasterEnemyArrayEntry.enemyType == enemyType || enemyType == "all") && (enemyName == undefined || currentMasterEnemyArrayEntry.name == enemyName)) { //These entry criteria are hideous. How can I do this better? With a test function? Passes all tests, true?
+            enemyList.push(masterEnemyArray[i]); //If it passes, push it to the end of enemyList...
+            i++; //And increment the index up.
         } else {
-            i++;
+            i++; //Or just increment the index up if it fails.
         }
     }
-    return enemyList;
+    return enemyList; //Return the curated enemy list.
 }
 
-function populateNonCombatEncounters() {
+function populateNonCombatEncounters() { //Helper function to narrow down to a pool of encounters that match user input.
     const SETTING = ENCOUNTER_PREFERENCES.setting;
     potentialEncounters = [];
     let i = 0;
@@ -134,7 +138,7 @@ function populateNonCombatEncounters() {
     return;
 }
 
-function populateCombatEncounters() {
+function populateCombatEncounters() { //Helper function to narrow down to a pool of combat encounters that match user input.
     const SETTING = ENCOUNTER_PREFERENCES.setting;
     const CR = ENCOUNTER_PREFERENCES.calculatedCR();
     potentialEncounters = [];
@@ -148,7 +152,7 @@ function populateCombatEncounters() {
     return;
 }
 
-function fillCurrentEncounterObj(encounterObject) {
+function fillCurrentEncounterObj(encounterObject) { //Helper function to update the CURRENT_ENCOUNTER object with the details from 
     CURRENT_ENCOUNTER.title = encounterObject.title ?? "No Title";
     CURRENT_ENCOUNTER.description = encounterObject.description ?? "No Description";
     CURRENT_ENCOUNTER.dmNotes = encounterObject.dmNotes ?? "No DM Notes"
@@ -174,7 +178,6 @@ function updateEncounterContainer() {
         PARAGRAPH.innerHTML = "<p>" + enemy.name + " - " + "XP: " + enemy.xpVal + "</p>";
         ENCOUNTER_ENEMIES_DISPLAY.insertAdjacentElement("beforeend", PARAGRAPH);
     });
-    console.log("Please Help");
     return;
 }
 

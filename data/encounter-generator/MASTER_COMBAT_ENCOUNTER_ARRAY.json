@@ -64,6 +64,6 @@
         "enemyType":"monster",
         "singleEnemy":false,
         "rewardTable":["1 standard health potion per player.", "Three gold teeth, valued at 2 gp each.", "An emerald."],
-        "dmNotes":"This should just be a fun basic encounter. The party should definitely be allowed to hang out with the dog after the encounter. Laziness or bad combat = dead dog."
+        "dmNotes":"This is the most basic encounter possible. But if you need some quick combat, it'll do the trick. You may wish to scale the rewards up a little."
     }
 ]
