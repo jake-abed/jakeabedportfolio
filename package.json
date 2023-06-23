@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/badhandbanana/wencorgizattack/issues"
   },
-  "homepage": "https://github.com/badhandbanana/wencorgizattack#readme"
+  "homepage": "https://github.com/badhandbanana/wencorgizattack#readme",
+  "devDependencies": {
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4"
+  }
 }
