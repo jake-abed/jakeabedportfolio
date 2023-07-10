@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="css/corgi-style.css">
+		<script src="scripts/ingredient-checker.js" async></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Monoton&family=Nanum+Gothic&display=swap" rel="stylesheet">
+		<title>Some Resources | WENCORGIZATTACK</title>
+	</head>
+	<body>
+        <script src="https://artofskincare.secure.force.com/service/lightning/lightning.out.js"></script>
+
+<div id="lightningLocator"></div>
+
+<script>
+    $Lightning.use("c:WebToCase_AoSAcneConsultApp",
+        function() {
+            $Lightning.createComponent(
+                "c:WebToCase_AoSAcneConsult",
+                { },                  
+                "lightningLocator",   
+                function(cmp) {}
+            );
+        },
+        'https://artofskincare.my.site.com/AOShelp'
+    );
+</script>
+			
+	</body>
+</html>
