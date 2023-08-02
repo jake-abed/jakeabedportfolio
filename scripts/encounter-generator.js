@@ -73,8 +73,9 @@ const CURRENT_ENCOUNTER = {
         return;
     },
     chooseEnemies: function () {
-        const minCR = ENCOUNTER_PREFERENCES.calculatedCR() - 16; //Establish a minimum CR for single Enemy Encounters.
+        const minCR = ENCOUNTER_PREFERENCES.calculatedCR() - 8; //Establish a minimum CR for single Enemy Encounters.
         let remainingCR = ENCOUNTER_PREFERENCES.calculatedCR();
+        console.log(minCR);
         if (!this.potentialEnemyList) return console.error("Could not populate enemies."); //If there are no potential enemies, return and log an error.
         if (this.potentialEnemyList.length === 1 && this.singleEnemy === true) return this.enemies = this.potentialEnemyList; //If there is only a single enemy in the potential enemy list and there's only a single enemy required, you're set.
         if (this.singleEnemy === true) { //In case of single enemy, but multiple entries...
@@ -83,16 +84,17 @@ const CURRENT_ENCOUNTER = {
                 if (this.potentialEnemyList[i].cr >= minCR) //If the enemy's CR is greater than or equal to minCR...
                 trimmedEnemyList.push(this.potentialEnemyList[i]); //Push it to the end of the trimmedEnemyList!
             }
+            console.log(trimmedEnemyList);
             trimmedEnemyList.length != 0 ? this.enemies = [selectRandomArrayEntry(trimmedEnemyList)] : this.enemies = [selectRandomArrayEntry(this.potentialEnemyList)]; //If trimmedEnemyList is not equal to zero, choose one. If no enemies met the criteria, just choose one from the initial list.
             //Side note: this could be refactored to be a function that could recur. It could rerun the function with slightly less stringent criteria? Food for thought.
         } else {
             let finalEnemyList = []; //Declare an array variable to store all enemies in.
-            let acceptableDeviance = remainingCR / 32; //Establish an acceptable range of deviance from the
+            let acceptableDeviance = remainingCR / 8; //Establish an acceptable range of deviance from the
             let breakpoint = 0; //Establish a breakpoint. If the loop ever pass this many iterations, it ends the loop. Basically a safety valve.
             while (remainingCR > acceptableDeviance && breakpoint < 50) {
                 let enemyRoll = selectRandomArrayEntry(this.potentialEnemyList);
                 breakpoint++; //Increment breakpoint up -- remember this won't check this until next iteration.
-                if (enemyRoll.cr <= remainingCR) {
+                if (enemyRoll.cr <= remainingCR && enemyRoll.cr <= minCR) {
                     finalEnemyList.push(enemyRoll); //Push the enemy to the end of the output list.
                     remainingCR -= enemyRoll.cr; //And decrement remainingCR
                 }
@@ -175,7 +177,7 @@ function updateEncounterContainer() {
     if (!ENCOUNTER_PREFERENCES.combat) return;
     CURRENT_ENCOUNTER.enemies.forEach(enemy => {
         const PARAGRAPH = document.createElement("p");
-        PARAGRAPH.innerHTML = "<p>" + enemy.name + " - " + "XP: " + enemy.xpVal + "</p>";
+        PARAGRAPH.innerHTML = "<p>" + enemy.name + " - " + "XP: " + enemy.xpVal + " - " + "CR: "+ enemy.cr/8 + "</p>";
         ENCOUNTER_ENEMIES_DISPLAY.insertAdjacentElement("beforeend", PARAGRAPH);
     });
     return;

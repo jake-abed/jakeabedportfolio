@@ -16,7 +16,7 @@
         "minCR":4,
         "maxCR":56,
         "description":"A harsh whizzing sound begins growing as a rabid animal plummets from the sky like a comet.",
-        "enemyType":"animal",
+        "enemyType":"all",
         "singleEnemy":true,
         "rewardTable":["Just the corpse of the animal","1 large pearl per Desired CR","1 Health Potion"],
         "dmNotes":"If the enemy generated cannot fly, sub in something different."
@@ -56,14 +56,25 @@
         "dmNotes":"This should just be a fun basic encounter. The party should definitely be allowed to hang out with the dog after the encounter. Laziness or bad combat = dead dog."
     },
     {
-        "title":"A group of random monsters attacks!",
+        "title":"A group of random enemies attacks!",
         "locations":["random", "city", "cloudsea", "dungeon", "outdoors"],
         "minCR":1,
         "maxCR":960,
         "description":"Again, what is this? Final fantasy. Feel free to sub-out or add monsters as needed.",
-        "enemyType":"monster",
+        "enemyType":"all",
         "singleEnemy":false,
         "rewardTable":["1 standard health potion per player.", "Three gold teeth, valued at 2 gp each.", "An emerald."],
         "dmNotes":"This is the most basic encounter possible. But if you need some quick combat, it'll do the trick. You may wish to scale the rewards up a little."
+    },
+    {
+        "title":"A dragon attacks the ship!",
+        "locations":["cloudsea"],
+        "minCR":16,
+        "maxCR":960,
+        "description":"A single dragon attacks the ship. It could be an enraged young dragon, or an elderly dragon.",
+        "enemyType":"dragon",
+        "singleEnemy":true,
+        "rewardTable":["100 gold per CR level in the dragons stomach.", "Three gold teeth, valued at 2 gp each.", "A +2 magic weapon of DM's choice lodged in the stomach of the dragon."],
+        "dmNotes":"If the dragon is older, it can talk and be spicy to the players."
     }
 ]

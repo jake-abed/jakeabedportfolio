@@ -56,5 +56,13 @@
     {"name":"Death Slaad","potentialLocations":["random","dungeon","outdoors"],"enemyType":"monster","cr":80,"xpVal":5900},
     {"name":"Anklyosaurus","potentialLocations":["random","outdoors"],"enemyType":"monster","cr":24,"xpVal":700},
     {"name":"Lamia","potentialLocations":["random","dungeon","outdoors"],"enemyType":"monster","cr":32,"xpVal":1100},
-    {"name":"Mind Flayer","potentialLocations":["random","dungeon"],"enemyType":"monster","cr":56,"xpVal":2900}
+    {"name":"Mind Flayer","potentialLocations":["random","dungeon"],"enemyType":"monster","cr":56,"xpVal":2900},
+    {"name":"Young Green Dragon","potentialLocations":["random","cloudsea","dungeon"],"enemyType":"dragon","cr":64,"xpVal":3900},
+    {"name":"Red Dragon Wyrmling","potentialLocations":["random","cloudsea","dungeon"],"enemyType":"dragon","cr":32,"xpVal":1100},
+    {"name":"Blue Dragon Wyrmling","potentialLocations":["random","cloudsea","dungeon"],"enemyType":"dragon","cr":24,"xpVal":700},
+    {"name":"White Dragon Wyrmling","potentialLocations":["random","cloudsea","dungeon"],"enemyType":"dragon","cr":16,"xpVal":450},
+    {"name":"Young Black Dragon","potentialLocations":["random","cloudsea","dungeon"],"enemyType":"dragon","cr":56,"xpVal":2900},
+    {"name":"Chimera","potentialLocations":["random","cloudsea","outdoors","dungeon"],"enemyType":"monster","cr":48,"xpVal":2300},
+    {"name":"Corrupted Couatl","potentialLocations":["random","cloudsea","outdoors"],"enemyType":"monster","cr":32,"xpVal":1100},
+    {"name":"Young White Dragon","potentialLocations":["random","cloudsea","dungeon"],"enemyType":"dragon","cr":48,"xpVal":2300}
 ]
